@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "/*": ["./src/*"]
+    },
+    "esModuleInterop": true
+  },
+  "include": ["src", ".d.ts"]
+}
