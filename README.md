@@ -1,5 +1,7 @@
 ## Blast Game
 
+DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlify.app/)
+
 Техническое задание ([ссылка](https://docs.google.com/document/d/1zsX8N4ORiEmDza7S5Q2SeIjYAQvmkB2FnGCIerIstcA))
 
 Стек: TypeScript, **Pixi.js**, Jest, Webpack, Eslint, Prettier, SASS.
