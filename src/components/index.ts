@@ -1,8 +1,8 @@
-export { Block } from 'src/components/block';
-export { Button } from 'src/components/button';
-export { ButtonPause } from 'src/components/buttonPause';
-export { ButtonWeapon } from 'src/components/buttonWeapon';
-export { Field } from 'src/components/field';
-export { Panel } from 'src/components/panel';
-export { ProgressBar } from 'src/components/progressBar';
-export { Wallet } from 'src/components/wallet';
+export { Block } from './block';
+export { Button } from './button';
+export { ButtonPause } from './buttonPause';
+export { ButtonWeapon } from './buttonWeapon';
+export { Field } from './field';
+export { Panel } from './panel';
+export { ProgressBar } from './progressBar';
+export { Wallet } from './wallet';
