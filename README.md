@@ -2,7 +2,7 @@
 
 DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlify.app/)
 
-Техническое задание ([ссылка](https://docs.google.com/document/d/1zsX8N4ORiEmDza7S5Q2SeIjYAQvmkB2FnGCIerIstcA))
+Техническое задание: [ссылка](https://docs.google.com/document/d/1zsX8N4ORiEmDza7S5Q2SeIjYAQvmkB2FnGCIerIstcA)
 
 Стек: TypeScript, **Pixi.js**, Jest, Webpack, Eslint, Prettier, SASS.
 
@@ -31,14 +31,14 @@ DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlif
 - `assets/` спрайты в едином файле с описанием в .json, шрифты.
 - `components/` компоненты с архитектутой MVC
 - `game/`: основной класс игры
-    - `controller.ts`: класс взаимодействия игрока с игрой
-    - `mechanics.ts`: класс игровых механик
+  - `controller.ts`: класс взаимодействия игрока с игрой
+  - `mechanics.ts`: класс игровых механик
 - `shared/`: общие объекты, не являющиеся классами
-    - `animation.ts`: воспроизведение анимаций
-    - `constants.ts`: константы и настройки игры
-    - `localozation.ts`: строки для локализации на разные языки
-    - `textures.ts`: загрузка и использование текстур
-    - `types.ts`: общие типы
+  - `animation.ts`: воспроизведение анимаций
+  - `constants.ts`: константы и настройки игры
+  - `localozation.ts`: строки для локализации на разные языки
+  - `textures.ts`: загрузка и использование текстур
+  - `types.ts`: общие типы
 - `utils/`: вспомогательные утилиты и классы
 
 Файлы с тестами имеют расширение `.test.ts`.
