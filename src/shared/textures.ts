@@ -1,5 +1,5 @@
 import { GAME } from '/shared/constants';
-import { Assets, Texture, NineSlicePlane } from 'pixi.js';
+import { Assets, Texture } from 'pixi.js';
 
 const spritesSheetJson = '/sprites/sheet.json';
 
@@ -14,13 +14,11 @@ type TTextures = {
 type TCached = {
   blocks: TBlocks;
   textures: TTextures;
-  alpha: NineSlicePlane;
 };
 
 const cached = {
   blocks: {},
   textures: {},
-  alpha: {},
 };
 
 const loadTextures = async () => {
@@ -50,7 +48,7 @@ const saveLoadedTextures = (): void => {
   cached.textures = newTextures as TTextures;
 };
 
-export const BlastTextures = {
+export const Textures = {
   loadTextures,
   cached: cached as TCached,
 };
