@@ -5,6 +5,11 @@ export type TPosition = {
   y: number;
 };
 
+export type TSize = {
+  width: number;
+  height: number;
+};
+
 export type TSuperPower = {
   minLimit: number;
   color: POWERUPSCOLORS;
@@ -12,3 +17,5 @@ export type TSuperPower = {
 };
 
 export type PromiseResolver<T = unknown> = (value: T) => unknown;
+
+export type TCallback = (...args: unknown[]) => unknown;

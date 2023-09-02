@@ -1,60 +1,44 @@
-import { Container, DisplayObjectEvents, Sprite } from 'pixi.js';
+import { UIView } from '/components/abstract';
+import { Sprite } from 'pixi.js';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
-import { BlastTextures } from '/shared/textures';
+import { Textures } from '/shared/textures';
 import { BlockModel } from './index';
 
 const calculatePosition = (value: number) => {
   return value * GAME.block.size + GAME.block.size / 2;
 };
 
-export class BlockView {
-  private readonly _container: Container;
+const create = {
+  sprite(): Sprite {
+    const sprite = new Sprite();
+    const size = GAME.block.size;
+    const headHeight = GAME.block.size * GAME.block.head;
+    const fullHeight = GAME.block.size + headHeight;
+    sprite.width = size;
+    sprite.height = fullHeight;
+    sprite.position.y = headHeight;
+    sprite.position.x = 0;
+    return sprite;
+  },
+};
+
+export class BlockView extends UIView<BlockModel> {
   private readonly _sprite: Sprite;
 
   constructor(model: BlockModel) {
-    this._sprite = this.create.sprite();
-    this._container = this.create.container(this._sprite);
-    model.eventBus.on(BLOCKACTIONS.updated, this.update);
-    model.eventBus.on(BLOCKACTIONS.recreated, this.recreate);
-    model.eventBus.on(BLOCKACTIONS.falling, this.falling);
-    model.eventBus.emit(BLOCKACTIONS.recreated, model);
+    const sprite = create.sprite();
+    super(model, sprite);
+    this._sprite = sprite;
+    const pivotX = sprite.width * GAME.block.pivot.x;
+    const pivotY = sprite.height * GAME.block.pivot.y + GAME.block.size * GAME.block.head;
+    this._container.pivot.set(pivotX, pivotY);
+    this._container.sortableChildren = true;
+    this._container.eventMode = 'static';
+    model.gameplayBus.on(BLOCKACTIONS.updated, this.update);
+    model.gameplayBus.on(BLOCKACTIONS.recreated, this.recreate);
+    model.gameplayBus.on(BLOCKACTIONS.falling, this.falling);
+    model.gameplayBus.emit(BLOCKACTIONS.recreated, model);
   }
-
-  private create = {
-    sprite(): Sprite {
-      const sprite = new Sprite();
-      const size = GAME.block.size;
-      const headHeight = GAME.block.size * GAME.block.head;
-      const fullHeight = GAME.block.size + headHeight;
-      sprite.width = size;
-      sprite.height = fullHeight;
-      sprite.position.y = headHeight;
-      sprite.position.x = 0;
-      return sprite;
-    },
-    container(sprite: Sprite): Container {
-      const container = new Container();
-      const size = GAME.block.size;
-      const headHeight = GAME.block.size * GAME.block.head;
-      container.width = size;
-      container.height = size;
-      container.addChild(sprite);
-      const pivotX = size * GAME.block.pivot.x;
-      const pivotY = size * GAME.block.pivot.y + headHeight;
-      container.pivot.set(pivotX, pivotY);
-      container.sortableChildren = true;
-      container.eventMode = 'static';
-      return container;
-    },
-  };
-
-  public addToContainer = (container: Container): void => {
-    container.addChild(this._container);
-  };
-
-  public registerPixiEvent = (event: keyof DisplayObjectEvents, callback: () => void): void => {
-    this._container.on(event, callback);
-  };
 
   private update = (model: BlockModel) => {
     this._container.scale.x = model.props.scale;
@@ -64,7 +48,7 @@ export class BlockView {
   };
 
   private recreate = (model: BlockModel) => {
-    this._sprite.texture = BlastTextures.cached.blocks[model.props.color];
+    this._sprite.texture = Textures.cached.blocks[model.props.color];
     this._container.position.x = calculatePosition(model.props.position.x);
     let y = calculatePosition(model.props.position.y);
     if (model.props.position.y < 0) y -= GAME.block.newGap * GAME.block.size;

@@ -1,20 +1,9 @@
+import { UIController } from '/components/abstract';
 import { BlockModel, BlockView } from './index';
 
-export class BlockController {
-  private readonly _model: BlockModel;
-  private readonly _view: BlockView;
-
+export class BlockController extends UIController<BlockModel, BlockView> {
   constructor(model: BlockModel, view: BlockView) {
-    this._model = model;
-    this._view = view;
-  }
-
-  get addToContainer() {
-    return this._view.addToContainer;
-  }
-
-  get registerPixiEvent() {
-    return this._view.registerPixiEvent;
+    super(model, view);
   }
 
   get recreate() {

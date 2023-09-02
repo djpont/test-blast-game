@@ -1,20 +1,15 @@
-import { Container } from 'pixi.js';
+import { UIComponent } from '/components/abstract';
 import { GAME } from '/shared/constants';
 import { FieldModel } from './model';
 import { FieldView } from './view';
 import { FieldController } from './controller';
 
-export { FieldModel, FieldView, FieldController };
-
-export class Field {
-  private readonly _model: FieldModel;
-  private readonly _view: FieldView;
-  private readonly _controller: FieldController;
-
-  constructor(stage: Container) {
-    this._model = new FieldModel(GAME.field.width, GAME.field.height);
-    this._view = new FieldView(this._model, stage);
-    this._controller = new FieldController(this._model, this._view);
+export class Field extends UIComponent<FieldModel, FieldView, FieldController> {
+  constructor() {
+    const model = new FieldModel(GAME.field.width, GAME.field.height);
+    const view = new FieldView(model);
+    const controller = new FieldController(model, view);
+    super(model, view, controller);
   }
 
   public get model() {

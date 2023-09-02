@@ -1,31 +1,32 @@
+import { UIModel } from '/components/abstract';
 import { EventBus } from '/utils/eventBus';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 
 type TColor = (typeof GAME.block.colors)[number];
 
-export class BlockModel {
-  public readonly eventBus: EventBus<BLOCKACTIONS>;
+export class BlockModel extends UIModel {
+  public readonly gameplayBus: EventBus<BLOCKACTIONS>;
   private _x: number;
   private _y: number;
   private _fallingFrom: number;
-  private _scale: number;
   private _alpha: number;
   private _color: TColor;
 
   constructor(x: number, y: number) {
-    this.eventBus = new EventBus();
+    super();
+    this.gameplayBus = new EventBus();
     this._x = x;
     this._y = y;
     this._fallingFrom = y;
     this.recreate();
   }
 
-  get props() {
+  public get props() {
     return {
       position: { x: this._x, y: this._y } as TPosition,
-      color: this._color,
       scale: this._scale,
+      color: this._color,
       alpha: this._alpha,
     };
   }
@@ -34,7 +35,7 @@ export class BlockModel {
     const { x, y } = position;
     if (x !== undefined) this._x = x;
     if (y !== undefined) this._y = y;
-    this.eventBus.emit(BLOCKACTIONS.updated, this);
+    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
   }
 
   private randomizeColor = (): void => {
@@ -52,7 +53,7 @@ export class BlockModel {
     if (position) this.position = position;
     this.randomizeColor();
     this.reset();
-    this.eventBus.emit(BLOCKACTIONS.recreated, this);
+    this.gameplayBus.emit(BLOCKACTIONS.recreated, this);
   };
 
   public zoomingOut = (delta: number): void => {
@@ -60,16 +61,16 @@ export class BlockModel {
     const diffOpacity = GAME.animationSpeed.opacity * delta;
     this._scale -= diffZoom;
     this._alpha -= diffOpacity;
-    this.eventBus.emit(BLOCKACTIONS.updated, this);
+    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
   };
 
   public setFallPosition = (y: number) => {
     this._fallingFrom = this._y;
     this._y = y;
-    this.eventBus.emit(BLOCKACTIONS.updated, this);
+    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
   };
 
   public falling = (delta: number) => {
-    this.eventBus.emit(BLOCKACTIONS.falling, this, delta);
+    this.gameplayBus.emit(BLOCKACTIONS.falling, this, delta);
   };
 }

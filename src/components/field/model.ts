@@ -1,16 +1,15 @@
-import { EventBus } from '/utils/eventBus';
+import { UIModel } from '/components/abstract';
 import { Block } from '/components/block';
-import { FIELDACTIONS, GAME } from '/shared/constants';
+import { UIACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 
-export class FieldModel {
-  public readonly eventBus: EventBus<FIELDACTIONS>;
+export class FieldModel extends UIModel {
   private readonly _blocks: Block[] = [];
   private readonly _width: number;
   private readonly _height: number;
 
   constructor(width: number, height: number) {
-    this.eventBus = new EventBus();
+    super();
     this._width = width;
     this._height = height;
     for (let y = 0; y < height; y++) {
@@ -37,7 +36,7 @@ export class FieldModel {
       const callbackWithBlock = () => {
         callback(block);
       };
-      block.controller.registerPixiEvent('pointerdown', callbackWithBlock);
+      block.controller.registerPixiEvent(GAME.pointerEvent, callbackWithBlock);
     });
   };
 
@@ -52,7 +51,7 @@ export class FieldModel {
     this.blocks.forEach((block, index) => {
       block.controller.recreate(newPositions[index]);
     });
-    this.eventBus.emit(FIELDACTIONS.updated);
+    this.eventBus.emit(UIACTIONS.valueUpdated);
   };
 
   public get map(): Block[][] {
@@ -63,7 +62,7 @@ export class FieldModel {
     }
     verticals.forEach(vertical =>
       vertical.forEach(block => {
-        const { x, y } = block.model.position;
+        const { x, y } = block.props.position;
         if (x >= 0 && x < GAME.field.width && y >= 0 && x < GAME.field.width) {
           map[x][y] = block;
         }
@@ -78,15 +77,15 @@ export class FieldModel {
       verticals[x] = [];
     }
     this.blocks.forEach(block => {
-      verticals[block.model.position.x].push(block);
+      verticals[block.props.position.x].push(block);
     });
-    verticals.forEach(vertical => vertical.sort((a, b) => a.model.position.y - b.model.position.y));
+    verticals.forEach(vertical => vertical.sort((a, b) => a.props.position.y - b.props.position.y));
     return verticals;
   };
 
   public getLineNeighbours = (block: Block, orientation: 'horizontal' | 'vertical'): Block[] => {
     const neighboursPositions: TPosition[] = [];
-    const { position } = block.model;
+    const { position } = block.props;
     const dLimit = orientation === 'horizontal' ? GAME.field.width : GAME.field.height;
     for (let d = 0; d < dLimit; d++) {
       const newPosition = { x: position.x, y: position.y };
@@ -105,7 +104,7 @@ export class FieldModel {
 
   public getRectNeighbours = (block: Block, length: number = 1): Block[] => {
     const neighboursPositions: TPosition[] = [];
-    const { position } = block.model;
+    const { position } = block.props;
     for (let x = position.x - length; x <= position.x + length; x++) {
       for (let y = position.y - length; y <= position.y + length; y++) {
         neighboursPositions.push({ x, y });
@@ -118,8 +117,9 @@ export class FieldModel {
   };
 
   public getSameNeighbours = (block: Block, found: Block[] = []): Block[] => {
-    const { x, y } = block.model.position;
-    const color = block.model.color;
+    const { x, y } = block.props.position;
+    // @ts-ignore-next-line
+    const color = block.props.color;
     if (!found.length) found.push(block);
     const map = this.map;
     const neighboursPositions: TPosition[] = [];
@@ -132,7 +132,8 @@ export class FieldModel {
         if (!this.checkPositionIsInsideField(position)) return false;
         const block = map[position.x][position.y];
         if (!block || found.includes(block)) return false;
-        if (block.model.color === color) {
+        // @ts-ignore-next-line
+        if (block.props.color === color) {
           found.push(block);
           return true;
         }
@@ -148,7 +149,7 @@ export class FieldModel {
 
   public getUpperEmptyPosition = (position: TPosition): TPosition => {
     const { x } = position;
-    const y = this.verticals()[x][0].model.position.y - 1;
+    const y = this.verticals()[x][0].props.position.y - 1;
     return { x: position.x, y };
   };
 }

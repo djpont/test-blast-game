@@ -1,14 +1,12 @@
 import { Block } from '/components/block';
-import { FIELDACTIONS } from '/shared/constants';
-import { FieldModel, FieldView } from './index';
+import { UIController } from '/components/abstract';
+import { UIACTIONS } from '/shared/constants';
+import { FieldModel } from './model';
+import { FieldView } from './view';
 
-export class FieldController {
-  private readonly _model: FieldModel;
-  private readonly _view: FieldView;
-
+export class FieldController extends UIController<FieldModel, FieldView> {
   constructor(model: FieldModel, view: FieldView) {
-    this._model = model;
-    this._view = view;
+    super(model, view);
   }
 
   get reset() {
@@ -21,7 +19,7 @@ export class FieldController {
 
   public recreateBlocks = (blocks: Block[]) => {
     blocks.forEach(block => {
-      const newPosition = this._model.getUpperEmptyPosition(block.model.position);
+      const newPosition = this._model.getUpperEmptyPosition(block.props.position);
       block.controller.recreate(newPosition);
     });
   };
@@ -31,13 +29,13 @@ export class FieldController {
     this._model.verticals().forEach(vertical => {
       for (let y = vertical.length - 1; y >= 0; y--) {
         const block = vertical[y];
-        if (block.model.position.y < y) {
+        if (block.props.position.y < y) {
           block.controller.falling.set(y);
           blocksWillFall.push(block);
         }
       }
     });
-    this._model.eventBus.emit(FIELDACTIONS.updated);
+    this._model.eventBus.emit(UIACTIONS.valueUpdated);
     return blocksWillFall;
   };
 }
