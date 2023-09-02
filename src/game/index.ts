@@ -1,8 +1,10 @@
+import { Scene, TSceneComponent } from '/classes/scene';
+import { TSize } from '/shared/types';
 import { Application } from 'pixi.js';
 import { Animations } from '/shared/animation';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
-import { Field } from '/components';
+import { ButtonPause, ButtonWeapon, Field, Panel, ProgressBar, Wallet } from '/components';
 import { GameController } from './controller';
 import { GameMechanics } from './mechanics';
 
@@ -48,62 +50,73 @@ export class Game {
   }
 
   private startBlastGame = () => {
+    const appSize: TSize = {
+      width: 2540, //window.innerWidth,
+      height: 2120, //window.innerHeight,
+    };
+
     const app = new Application({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      ...appSize,
       backgroundColor: 0x1099bb,
     });
     document.body.appendChild(app.view as HTMLCanvasElement);
 
+    const resize = () => {
+      const scaleX = window.innerWidth / appSize.width;
+      const scaleY = window.innerHeight / appSize.height;
+      const scale = Math.min(scaleX, scaleY);
+      app.stage.scale.set(scale, scale);
+      app.renderer.resize(appSize.width * scale, appSize.height * scale);
+    };
+    resize();
+
+    window.addEventListener('resize', resize);
+
     const field = new Field();
-    field.controller.addToContainer(app.stage);
+
+    const mainSceneElements: TSceneComponent[] = [
+      {
+        element: new ProgressBar(2220),
+        layout: { position: { x: 20, y: -100 }, scale: 1 },
+      },
+      {
+        element: new ButtonPause(),
+        layout: { position: { x: 2260, y: 10 }, scale: 0.9 },
+      },
+      {
+        element: field,
+        layout: { position: { x: 0, y: 300 }, scale: 1 },
+      },
+      {
+        element: new Panel(),
+        layout: { position: { x: 1650, y: 285 }, scale: 0.8 },
+      },
+      {
+        element: new Wallet(),
+        layout: { position: { x: 1740, y: 1170 }, scale: 1 },
+      },
+      {
+        element: new ButtonWeapon(10, Localization.text.bomb),
+        layout: { position: { x: 1725, y: 1370 }, scale: 0.9 },
+      },
+      {
+        element: new ButtonWeapon(10, Localization.text.bomb),
+        layout: { position: { x: 2125, y: 1370 }, scale: 0.9 },
+      },
+      {
+        element: new ButtonWeapon(10, Localization.text.bomb),
+        layout: { position: { x: 1725, y: 1750 }, scale: 0.9 },
+      },
+      {
+        element: new ButtonWeapon(10, Localization.text.bomb),
+        layout: { position: { x: 2125, y: 1750 }, scale: 0.9 },
+      },
+    ];
+
+    new Scene(mainSceneElements, appSize, app);
 
     const gameMechanics = new GameMechanics(field);
     new GameController(field, gameMechanics);
-
-    // const score = new Panel();
-    // score.controller.addToContainer(app.stage);
-    // score.controller.changeScore(10);
-    // score.controller.changeMovesLeft(20);
-    // const btn1 = new ButtonWeapon(10, BlastLocalization.text.bomb);
-    // btn1.controller.changeProps.position({ x: 100, y: 100 });
-    // btn1.controller.addToContainer(app.stage);
-    // const btn2 = new Button('кнопка', 'purple', 500);
-    // btn2.controller.addToContainer(app.stage);
-    // btn2.controller.changeProps.position({ x: 100, y: 100 });
-
-    // const progress = new ProgressBar(LAYOUT.progress.size, 1);
-    // progress.controller.addToContainer(app.stage);
-    // progress.controller.changeProps.position({ x: 100, y: 25 });
-    //
-    // const pause = new ButtonPause();
-    // pause.controller.addToContainer(app.stage);
-    // pause.controller.registerPixiEvent(GAME.pointerEvent, callback);
-
-    // let money = 100;
-    // const wallet = new Wallet(money);
-    // wallet.controller.addToContainer(app.stage);
-    // wallet.controller.changeProps.position({ x: 50, y: 50 });
-    // wallet.controller.changeCallback(() => {
-    //   money -= 10;
-    //   wallet.controller.changeValue(money);
-    // });
-
-    // const a = new NineSlicePlane(BlastTextures.cached.textures.barBackground);
-    // a.height = 100;
-    // a.width = 100;
-    // // a.scale.set(0.1, 0.1);
-    // a.position.y = 20;
-    //
-    // const b = new Container();
-    // b.addChild(a);
-    // app.stage.addChild(b);
-    // b.scale.x = 0.2;
-    // b.scale.y = 0.2;
-
-    // setInterval(() => {
-    //   Animations.play(1);
-    // }, 100);
 
     app.ticker.add(delta => {
       Animations.play(delta);
