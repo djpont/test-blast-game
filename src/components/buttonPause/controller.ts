@@ -1,8 +1,8 @@
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { ButtonPauseModel } from './model';
 import { ButtonPauseView } from './view';
 
-export class ButtonPauseController extends UIController<ButtonPauseModel, ButtonPauseView> {
+export class ButtonPauseController extends MVCController<ButtonPauseModel, ButtonPauseView> {
   constructor(model: ButtonPauseModel, view: ButtonPauseView) {
     super(model, view);
   }

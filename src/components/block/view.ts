@@ -1,4 +1,4 @@
-import { UIView } from '/components/abstract';
+import { MVCView } from '/shared/mvc';
 import { Sprite } from 'pixi.js';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { Textures } from '/shared/textures';
@@ -22,7 +22,7 @@ const create = {
   },
 };
 
-export class BlockView extends UIView<BlockModel> {
+export class BlockView extends MVCView<BlockModel> {
   private readonly _sprite: Sprite;
 
   constructor(model: BlockModel) {

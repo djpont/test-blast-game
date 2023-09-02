@@ -1,9 +1,9 @@
 import { TCallback } from '/shared/types';
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { WalletModel } from './model';
 import { WalletView } from './view';
 
-export class WalletController extends UIController<WalletModel, WalletView> {
+export class WalletController extends MVCController<WalletModel, WalletView> {
   constructor(model: WalletModel, view: WalletView) {
     super(model, view);
   }

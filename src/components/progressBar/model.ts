@@ -1,7 +1,7 @@
 import { UIACTIONS } from '/shared/constants';
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 
-export class ProgressBarModel extends UIModel {
+export class ProgressBarModel extends MVCModel {
   private _value: number;
 
   constructor(value: number) {

@@ -1,9 +1,9 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { PanelController } from './controller';
 import { PanelModel } from './model';
 import { PanelView } from './view';
 
-export class Panel extends UIComponent<PanelModel, PanelView, PanelController> {
+export class Panel extends MVCComponent<PanelModel, PanelView, PanelController> {
   constructor() {
     const model = new PanelModel();
     const view = new PanelView(model);

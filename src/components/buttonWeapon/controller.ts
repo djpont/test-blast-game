@@ -1,8 +1,8 @@
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { ButtonWeaponModel } from './model';
 import { ButtonWeaponView } from './view';
 
-export class ButtonWeaponController extends UIController<ButtonWeaponModel, ButtonWeaponView> {
+export class ButtonWeaponController extends MVCController<ButtonWeaponModel, ButtonWeaponView> {
   constructor(model: ButtonWeaponModel, view: ButtonWeaponView) {
     super(model, view);
   }

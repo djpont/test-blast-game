@@ -37,7 +37,7 @@ const locate = (
   parent.addChild(element);
 };
 
-export const Layout = {
+export const Placer = {
   locate,
   locateByCenter,
 };

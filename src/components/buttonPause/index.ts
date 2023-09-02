@@ -1,9 +1,9 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { ButtonPauseController } from './controller';
 import { ButtonPauseModel } from './model';
 import { ButtonPauseView } from './view';
 
-export class ButtonPause extends UIComponent<
+export class ButtonPause extends MVCComponent<
   ButtonPauseModel,
   ButtonPauseView,
   ButtonPauseController

@@ -1,8 +1,8 @@
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { PanelModel } from './model';
 import { PanelView } from './view';
 
-export class PanelController extends UIController<PanelModel, PanelView> {
+export class PanelController extends MVCController<PanelModel, PanelView> {
   constructor(model: PanelModel, view: PanelView) {
     super(model, view);
   }

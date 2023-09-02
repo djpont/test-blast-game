@@ -1,8 +1,8 @@
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { ProgressBarModel } from './model';
 import { ProgressBarView } from './view';
 
-export class ProgressBarController extends UIController<ProgressBarModel, ProgressBarView> {
+export class ProgressBarController extends MVCController<ProgressBarModel, ProgressBarView> {
   constructor(model: ProgressBarModel, view: ProgressBarView) {
     super(model, view);
   }

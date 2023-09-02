@@ -1,9 +1,9 @@
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 import { Block } from '/components/block';
 import { UIACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 
-export class FieldModel extends UIModel {
+export class FieldModel extends MVCModel {
   private readonly _blocks: Block[] = [];
   private readonly _width: number;
   private readonly _height: number;

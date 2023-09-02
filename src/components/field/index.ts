@@ -1,10 +1,10 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { GAME } from '/shared/constants';
 import { FieldModel } from './model';
 import { FieldView } from './view';
 import { FieldController } from './controller';
 
-export class Field extends UIComponent<FieldModel, FieldView, FieldController> {
+export class Field extends MVCComponent<FieldModel, FieldView, FieldController> {
   constructor() {
     const model = new FieldModel(GAME.field.width, GAME.field.height);
     const view = new FieldView(model);

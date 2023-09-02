@@ -1,4 +1,4 @@
-import { UIView } from '/components/abstract';
+import { MVCView } from '/shared/mvc';
 import { Container, Graphics } from 'pixi.js';
 import { GAME, UIACTIONS } from '/shared/constants';
 import { FieldModel } from './model';
@@ -40,7 +40,7 @@ const create = {
   },
 };
 
-export class FieldView extends UIView<FieldModel> {
+export class FieldView extends MVCView<FieldModel> {
   constructor(model: FieldModel) {
     const mask = create.mask();
     super(model, mask);

@@ -1,7 +1,7 @@
 import { UIACTIONS } from '/shared/constants';
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 
-export class ButtonModel extends UIModel {
+export class ButtonModel extends MVCModel {
   private _text: string;
   private _width: number;
 

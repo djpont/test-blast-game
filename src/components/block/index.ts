@@ -1,11 +1,11 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { BlockModel } from './model';
 import { BlockController } from './controller';
 import { BlockView } from './view';
 
 export { BlockModel, BlockController, BlockView };
 
-export class Block extends UIComponent<BlockModel, BlockView, BlockController> {
+export class Block extends MVCComponent<BlockModel, BlockView, BlockController> {
   constructor(x: number, y: number) {
     const model = new BlockModel(x, y);
     const view = new BlockView(model);

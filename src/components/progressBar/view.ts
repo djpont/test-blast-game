@@ -1,12 +1,12 @@
 import { GAME, LAYOUT, UIACTIONS } from '/shared/constants';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
-import { Layout } from '/utils/layout';
+import { Placer } from '/utils/placer';
 import { NineSlicePlane, Text } from 'pixi.js';
-import { UIView } from '/components/abstract';
+import { MVCView } from '/shared/mvc';
 import { ProgressBarModel } from './model';
 
-export class ProgressBarView extends UIView<ProgressBarModel> {
+export class ProgressBarView extends MVCView<ProgressBarModel> {
   private readonly _fillBar: NineSlicePlane;
   private readonly _zeroSize: number;
   private readonly _fullSize: number;
@@ -16,16 +16,16 @@ export class ProgressBarView extends UIView<ProgressBarModel> {
     container.width = width;
 
     const text = new Text(Localization.text.progress, GAME.textStyle);
-    Layout.locateByCenter(text, container, LAYOUT.progress.text);
+    Placer.locateByCenter(text, container, LAYOUT.progress.text);
 
     const fillBarBackground = new NineSlicePlane(Textures.cached.textures.barBackground);
     fillBarBackground.width = width - LAYOUT.progress.bar.padding * 2;
-    Layout.locateByCenter(fillBarBackground, container, LAYOUT.progress.bar);
+    Placer.locateByCenter(fillBarBackground, container, LAYOUT.progress.bar);
 
     const fillBar = new NineSlicePlane(Textures.cached.textures.barFill);
     fillBar.position.x = LAYOUT.progress.fillPadding.left;
     fillBar.position.y = LAYOUT.progress.fillPadding.top;
-    Layout.locate(fillBar, fillBarBackground);
+    Placer.locate(fillBar, fillBarBackground);
 
     super(model, container);
     this._fillBar = fillBar;

@@ -1,11 +1,11 @@
 import { GAME, UIACTIONS } from '/shared/constants';
 import { Textures } from '/shared/textures';
-import { Layout } from '/utils/layout';
+import { Placer } from '/utils/placer';
 import { NineSlicePlane, Text } from 'pixi.js';
-import { UIView } from '/components/abstract';
+import { MVCView } from '/shared/mvc';
 import { ButtonModel } from './model';
 
-export class ButtonView extends UIView<ButtonModel> {
+export class ButtonView extends MVCView<ButtonModel> {
   private readonly _sprite: NineSlicePlane;
   private readonly _text: Text;
 
@@ -18,7 +18,7 @@ export class ButtonView extends UIView<ButtonModel> {
     sprite.width = model.width;
 
     const text = new Text(model.text, GAME.textStyle);
-    Layout.locateByCenter(text, sprite);
+    Placer.locateByCenter(text, sprite);
 
     super(model, sprite);
     this._sprite = sprite;

@@ -1,7 +1,7 @@
 import { UIACTIONS } from '/shared/constants';
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 
-export class PanelModel extends UIModel {
+export class PanelModel extends MVCModel {
   private _score: number;
   private _movesLeft: number;
 

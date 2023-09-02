@@ -1,11 +1,11 @@
 import { GAME, LAYOUT, UIACTIONS } from '/shared/constants';
 import { Textures } from '/shared/textures';
-import { Layout } from '/utils/layout';
+import { Placer } from '/utils/placer';
 import { Container, NineSlicePlane, Sprite, Text } from 'pixi.js';
-import { UIView } from '/components/abstract';
+import { MVCView } from '/shared/mvc';
 import { WalletModel } from './model';
 
-export class WalletView extends UIView<WalletModel> {
+export class WalletView extends MVCView<WalletModel> {
   private readonly _text: Text;
   private readonly _plus: Container;
 
@@ -24,11 +24,11 @@ export class WalletView extends UIView<WalletModel> {
 
     const text = new Text('', GAME.textStyle.clone());
     text.style.fontSize = LAYOUT.wallet.text.size;
-    Layout.locateByCenter(text, background, LAYOUT.wallet.text);
+    Placer.locateByCenter(text, background, LAYOUT.wallet.text);
 
     const plus = new Sprite(Textures.cached.textures.buttonPlus);
     plus.height = plus.width = background.height * 0.85;
-    Layout.locateByCenter(plus, background);
+    Placer.locateByCenter(plus, background);
     plus.position.x = background.width + 80;
     plus.eventMode = 'static';
     plus.cursor = 'pointer';

@@ -1,9 +1,9 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { ProgressBarController } from './controller';
 import { ProgressBarModel } from './model';
 import { ProgressBarView } from './view';
 
-export class ProgressBar extends UIComponent<
+export class ProgressBar extends MVCComponent<
   ProgressBarModel,
   ProgressBarView,
   ProgressBarController

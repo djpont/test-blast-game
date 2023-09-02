@@ -1,9 +1,9 @@
-import { UIComponent } from '/components/abstract';
+import { MVCComponent } from '/shared/mvc';
 import { ButtonWeaponController } from './controller';
 import { ButtonWeaponModel } from './model';
 import { ButtonWeaponView } from './view';
 
-export class ButtonWeapon extends UIComponent<
+export class ButtonWeapon extends MVCComponent<
   ButtonWeaponModel,
   ButtonWeaponView,
   ButtonWeaponController

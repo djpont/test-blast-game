@@ -1,7 +1,7 @@
-import { UIController } from '/components/abstract';
+import { MVCController } from '/shared/mvc';
 import { BlockModel, BlockView } from './index';
 
-export class BlockController extends UIController<BlockModel, BlockView> {
+export class BlockController extends MVCController<BlockModel, BlockView> {
   constructor(model: BlockModel, view: BlockView) {
     super(model, view);
   }

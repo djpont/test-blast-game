@@ -3,10 +3,10 @@ import { UIACTIONS } from '/shared/constants';
 import { TPosition } from '/shared/types';
 import { EventBus } from '/utils/eventBus';
 
-export abstract class UIComponent<
-  TModel extends UIModel,
-  TView extends UIView<TModel>,
-  TController extends UIController<TModel, TView>,
+export abstract class MVCComponent<
+  TModel extends MVCModel,
+  TView extends MVCView<TModel>,
+  TController extends MVCController<TModel, TView>,
 > {
   protected _model: TModel;
   protected _view: TView;
@@ -27,7 +27,7 @@ export abstract class UIComponent<
   }
 }
 
-export abstract class UIModel {
+export abstract class MVCModel {
   public readonly eventBus: EventBus<UIACTIONS>;
   protected _position: TPosition;
   protected _scale: number;
@@ -59,7 +59,7 @@ export abstract class UIModel {
   }
 }
 
-export abstract class UIView<TModel extends UIModel> {
+export abstract class MVCView<TModel extends MVCModel> {
   protected _container: Container;
   private _parent: Container;
 
@@ -98,7 +98,7 @@ export abstract class UIView<TModel extends UIModel> {
   };
 }
 
-export abstract class UIController<TModel extends UIModel, TView extends UIView<TModel>> {
+export abstract class MVCController<TModel extends MVCModel, TView extends MVCView<TModel>> {
   protected _model: TModel;
   protected _view: TView;
 

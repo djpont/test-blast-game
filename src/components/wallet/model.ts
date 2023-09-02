@@ -1,8 +1,8 @@
 import { UIACTIONS } from '/shared/constants';
 import { TCallback } from '/shared/types';
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 
-export class WalletModel extends UIModel {
+export class WalletModel extends MVCModel {
   private _value: number;
   private _callback: TCallback;
 

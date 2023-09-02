@@ -1,11 +1,11 @@
-import { UIModel } from '/components/abstract';
+import { MVCModel } from '/shared/mvc';
 import { EventBus } from '/utils/eventBus';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 
 type TColor = (typeof GAME.block.colors)[number];
 
-export class BlockModel extends UIModel {
+export class BlockModel extends MVCModel {
   public readonly gameplayBus: EventBus<BLOCKACTIONS>;
   private _x: number;
   private _y: number;
