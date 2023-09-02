@@ -1,8 +1,8 @@
 import { Block } from '/components/block';
 import { Field } from '/components/field';
-import { ANIMATIONS, WEAPONS } from '/shared/constants';
+import { ANIMATIONS, GAME, WEAPONS } from '/shared/constants';
 import { Animations } from '/shared/animation';
-import { PromiseResolver } from '/shared/types';
+import { PromiseResolver, TPosition } from '/shared/types';
 
 export class GameMechanics {
   private readonly _field: Field;
@@ -19,9 +19,17 @@ export class GameMechanics {
 
   public clickOnBlock = async (block: Block) => {
     let blocks: Block[] = [];
+
+    const checkBlocksLength = (minimum: number): void => {
+      if (blocks.length < minimum) {
+        blocks = [];
+      }
+    };
+
     switch (this._weapon) {
       case WEAPONS.simple:
         blocks = this._field.model.getNeighbours.same(block);
+        checkBlocksLength(GAME.minimumHit);
         break;
       case WEAPONS.bomb:
         blocks = this._field.model.getNeighbours.rect(block);
@@ -33,10 +41,11 @@ export class GameMechanics {
         blocks = this._field.model.getNeighbours.line(block, 'vertical');
         break;
     }
-    return this.disappearBlocks(blocks);
+
+    if (blocks.length) return this.disappearBlocks(blocks, block.props.position);
   };
 
-  private disappearBlocks = async (blocks: Block[]) => {
+  private disappearBlocks = async (blocks: Block[], clickPosition: TPosition) => {
     const callbackGenerator = (
       resolve: PromiseResolver<boolean>,
       blocksToBeDisappeared: Block[],
@@ -54,7 +63,11 @@ export class GameMechanics {
     return new Promise(resolve => {
       const callback = callbackGenerator(resolve, blocks);
       blocks.forEach(block => {
-        Animations.blocks.add(block, ANIMATIONS.disappearing, callback);
+        const lengthFromClickPosition =
+          Math.abs(block.props.position.x - clickPosition.x) +
+          Math.abs(block.props.position.y - clickPosition.y);
+        const delay = lengthFromClickPosition * GAME.animationSpeed.disappearDelay;
+        setTimeout(() => Animations.blocks.add(block, ANIMATIONS.disappearing, callback), delay);
       });
     });
   };
