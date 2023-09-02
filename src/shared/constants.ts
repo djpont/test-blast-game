@@ -1,5 +1,5 @@
-import { TSuperPower } from '/shared/types';
-import { TextStyle } from 'pixi.js';
+// import { TSuperPower } from '/shared/types';
+import { DisplayObjectEvents, TextStyle } from 'pixi.js';
 
 const blockColorNames = ['blue', 'purple', 'red', 'green', 'yellow'] as const;
 
@@ -37,14 +37,6 @@ export enum BLOCKACTIONS {
   falling = 'falling',
 }
 
-export enum POWERUPSCOLORS {
-  super = '#ffffff',
-}
-
-export enum POWERUPS {
-  super = 'super',
-}
-
 export enum WEAPONS {
   simple = 'simple',
   bomb = 'bomb',
@@ -52,25 +44,17 @@ export enum WEAPONS {
   vertical = 'vertical',
 }
 
-const powerUps: Record<POWERUPS, TSuperPower> = {
-  [POWERUPS.super]: {
-    minLimit: 999,
-    color: POWERUPSCOLORS.super,
-    weapon: WEAPONS.bomb,
-  },
-} as const;
-
-export const GAME = {
+const gameInitialConstants = {
   language: 'ru',
   field: {
-    width: 5,
-    height: 5,
+    width: 10,
+    height: 10,
   },
   block: {
-    size: Math.floor(172 / 2),
+    size: 172,
     head: 0.12,
+    newGap: 0,
     pivot: { x: 0.5, y: 0.5 },
-    newGap: 0.12,
     colors: blockColorNames,
   },
   textures: {
@@ -83,66 +67,18 @@ export const GAME = {
     disappearDelay: 50,
   },
   minimumHit: 2,
-  powerUps: powerUps,
-  weapons: {
-    [WEAPONS.bomb]: {
-      length: 1,
-    },
-  },
   textStyle: new TextStyle({
     fontFamily: 'Marvin',
     align: 'center',
     fill: '#fff',
     fontSize: '50px',
   }),
-  pointerEvent: 'pointerdown',
-} as const;
+  pointerEvent: 'pointerdown' as keyof DisplayObjectEvents,
+};
 
-export const LAYOUT = {
-  panel: {
-    score: {
-      background: { x: 0.5, y: 0.75 },
-      header: { x: 0, y: -0.235, size: '80px' },
-      text: { x: 0, y: 0.115, size: '140px' },
-    },
-    movesLeft: {
-      background: { x: 0.5, y: 0.325 },
-      text: { x: 0, y: -0.03, size: '250px' },
-    },
+export const GAME = {
+  ...gameInitialConstants,
+  setNewGap: (value: number) => {
+    gameInitialConstants.block.newGap = value;
   },
-  buttons: {
-    weapon: {
-      coin: { x: 0.69, y: 0.76 },
-      price: { x: 0.57, y: 0.735, size: '90px', anchor: { x: 1, y: 0.5 } },
-      title: { x: 0.5, y: 0.35, size: '50px' },
-    },
-  },
-  progress: {
-    size: 800,
-    text: {
-      x: 0.5,
-      y: 0.47,
-    },
-    bar: {
-      x: 0.5,
-      y: 0.75,
-      padding: 50,
-    },
-    fillPadding: {
-      left: 12,
-      right: 6,
-      top: 5,
-    },
-  },
-  wallet: {
-    text: {
-      x: 0.6,
-      y: 0.4,
-      size: '100px',
-    },
-    plus: {
-      x: 0.5,
-      y: 0.5,
-    },
-  },
-} as const;
+};

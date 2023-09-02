@@ -1,4 +1,4 @@
-import { MVCComponent } from '/shared/mvc';
+import { MVCComponent } from '/classes/mvc';
 import { ProgressBarController } from './controller';
 import { ProgressBarModel } from './model';
 import { ProgressBarView } from './view';

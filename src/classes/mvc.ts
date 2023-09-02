@@ -1,12 +1,12 @@
 import { Container, DisplayObjectEvents } from 'pixi.js';
 import { UIACTIONS } from '/shared/constants';
 import { TPosition } from '/shared/types';
-import { EventBus } from '/utils/eventBus';
+import { EventBus } from '/shared/eventBus';
 
 export abstract class MVCComponent<
-  TModel extends MVCModel,
-  TView extends MVCView<TModel>,
-  TController extends MVCController<TModel, TView>,
+  TModel extends MVCModel = MVCModel,
+  TView extends MVCView<TModel> = MVCView<TModel>,
+  TController extends MVCController<TModel, TView> = MVCController<TModel, TView>,
 > {
   protected _model: TModel;
   protected _view: TView;

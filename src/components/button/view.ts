@@ -1,8 +1,8 @@
 import { GAME, UIACTIONS } from '/shared/constants';
 import { Textures } from '/shared/textures';
-import { Placer } from '/utils/placer';
+import { Placer } from '/shared/placer';
 import { NineSlicePlane, Text } from 'pixi.js';
-import { MVCView } from '/shared/mvc';
+import { MVCView } from '/classes/mvc';
 import { ButtonModel } from './model';
 
 export class ButtonView extends MVCView<ButtonModel> {
@@ -25,7 +25,6 @@ export class ButtonView extends MVCView<ButtonModel> {
     this._text = text;
     model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
     model.eventBus.emit(UIACTIONS.valueUpdated, model);
-    model.changeProps.scale(0.5);
   }
 
   private valueUpdated = (model: ButtonModel) => {

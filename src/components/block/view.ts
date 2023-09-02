@@ -1,4 +1,4 @@
-import { MVCView } from '/shared/mvc';
+import { MVCView } from '/classes/mvc';
 import { Sprite } from 'pixi.js';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { Textures } from '/shared/textures';
@@ -58,11 +58,11 @@ export class BlockView extends MVCView<BlockModel> {
 
   public falling = (model: BlockModel, delta: number): void => {
     const diffY = GAME.block.size * GAME.animationSpeed.fall * delta;
-    const currentY = this._container.position.y + diffY;
+    const currentY = this._container.position.y;
     const finalY = calculatePosition(model.props.position.y);
     const distance = finalY - currentY;
     if (distance > diffY) {
-      this._container.position.y = currentY;
+      this._container.position.y = currentY + diffY;
     } else {
       this._container.position.y = finalY;
     }

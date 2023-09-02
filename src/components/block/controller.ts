@@ -1,4 +1,4 @@
-import { MVCController } from '/shared/mvc';
+import { MVCController } from '/classes/mvc';
 import { BlockModel, BlockView } from './index';
 
 export class BlockController extends MVCController<BlockModel, BlockView> {

@@ -1,5 +1,5 @@
 import { UIACTIONS } from '/shared/constants';
-import { MVCModel } from '/shared/mvc';
+import { MVCModel } from '/classes/mvc';
 
 export class ButtonWeaponModel extends MVCModel {
   private _price: number;

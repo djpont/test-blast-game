@@ -1,8 +1,9 @@
-import { GAME, LAYOUT, UIACTIONS } from '/shared/constants';
+import { GAME, UIACTIONS } from '/shared/constants';
+import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
-import { Placer } from '/utils/placer';
+import { Placer } from '/shared/placer';
 import { Sprite, Text } from 'pixi.js';
-import { MVCView } from '/shared/mvc';
+import { MVCView } from '/classes/mvc';
 import { ButtonWeaponModel } from './model';
 
 export class ButtonWeaponView extends MVCView<ButtonWeaponModel> {
@@ -23,6 +24,8 @@ export class ButtonWeaponView extends MVCView<ButtonWeaponModel> {
     title.style.fontSize = LAYOUT.buttons.weapon.title.size;
 
     super(model, container);
+    this._container.eventMode = 'static';
+    this._container.cursor = 'pointer';
     this._price = price;
     model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
   }

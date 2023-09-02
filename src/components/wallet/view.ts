@@ -1,8 +1,9 @@
-import { GAME, LAYOUT, UIACTIONS } from '/shared/constants';
+import { GAME, UIACTIONS } from '/shared/constants';
+import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
-import { Placer } from '/utils/placer';
+import { Placer } from '/shared/placer';
 import { Container, NineSlicePlane, Sprite, Text } from 'pixi.js';
-import { MVCView } from '/shared/mvc';
+import { MVCView } from '/classes/mvc';
 import { WalletModel } from './model';
 
 export class WalletView extends MVCView<WalletModel> {
@@ -39,7 +40,6 @@ export class WalletView extends MVCView<WalletModel> {
     model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
     model.eventBus.emit(UIACTIONS.valueUpdated, model);
     model.eventBus.on(UIACTIONS.callbackUpdated, this.callbackUpdated);
-    model.changeProps.scale(0.5);
   }
 
   private valueUpdated = (model: WalletModel) => {

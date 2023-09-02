@@ -1,5 +1,5 @@
 import { UIACTIONS } from '/shared/constants';
-import { MVCModel } from '/shared/mvc';
+import { MVCModel } from '/classes/mvc';
 
 export class ButtonModel extends MVCModel {
   private _text: string;

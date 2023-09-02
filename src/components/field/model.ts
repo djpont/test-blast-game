@@ -1,4 +1,4 @@
-import { MVCModel } from '/shared/mvc';
+import { MVCModel } from '/classes/mvc';
 import { Block } from '/components/block';
 import { UIACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';

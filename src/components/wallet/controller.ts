@@ -1,5 +1,5 @@
 import { TCallback } from '/shared/types';
-import { MVCController } from '/shared/mvc';
+import { MVCController } from '/classes/mvc';
 import { WalletModel } from './model';
 import { WalletView } from './view';
 

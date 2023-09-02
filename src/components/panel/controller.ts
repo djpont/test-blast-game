@@ -1,4 +1,4 @@
-import { MVCController } from '/shared/mvc';
+import { MVCController } from '/classes/mvc';
 import { PanelModel } from './model';
 import { PanelView } from './view';
 

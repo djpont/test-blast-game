@@ -1,9 +1,10 @@
-import { GAME, LAYOUT, UIACTIONS } from '/shared/constants';
+import { GAME, UIACTIONS } from '/shared/constants';
+import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
-import { Placer } from '/utils/placer';
+import { Placer } from '/shared/placer';
 import { NineSlicePlane, Text } from 'pixi.js';
-import { MVCView } from '/shared/mvc';
+import { MVCView } from '/classes/mvc';
 import { ProgressBarModel } from './model';
 
 export class ProgressBarView extends MVCView<ProgressBarModel> {
@@ -36,7 +37,6 @@ export class ProgressBarView extends MVCView<ProgressBarModel> {
       LAYOUT.progress.fillPadding.right;
     model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
     model.eventBus.emit(UIACTIONS.valueUpdated, model);
-    model.changeProps.scale(0.5);
   }
 
   private valueUpdated = (model: ProgressBarModel) => {

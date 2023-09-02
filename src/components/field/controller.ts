@@ -1,5 +1,5 @@
 import { Block } from '/components/block';
-import { MVCController } from '/shared/mvc';
+import { MVCController } from '/classes/mvc';
 import { UIACTIONS } from '/shared/constants';
 import { FieldModel } from './model';
 import { FieldView } from './view';
