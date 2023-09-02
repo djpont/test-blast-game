@@ -1,7 +1,7 @@
 import { Container, DisplayObjectEvents } from 'pixi.js';
 import { UIACTIONS } from '/shared/constants';
 import { TPosition } from '/shared/types';
-import { EventBus } from '/shared/eventBus';
+import { EventBus } from '/classes/eventBus';
 
 export abstract class MVCComponent<
   TModel extends MVCModel = MVCModel,

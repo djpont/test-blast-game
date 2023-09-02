@@ -5,7 +5,7 @@ import { Application } from 'pixi.js';
 import { Animations } from '/shared/animation';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
-import { ButtonPause, ButtonWeapon, Field, Panel, ProgressBar, Wallet } from '/components';
+import { ButtonPause, ButtonBonus, Field, Panel, ProgressBar, Wallet } from '/components';
 import { GameController } from './controller';
 import { GameMechanics } from './mechanics';
 
@@ -97,19 +97,19 @@ export class Game {
         layout: { position: { x: 1740, y: 1170 }, scale: 1 },
       },
       {
-        element: new ButtonWeapon(10, Localization.text.bomb),
+        element: new ButtonBonus(10, Localization.text.bomb),
         layout: { position: { x: 1725, y: 1370 }, scale: 0.9 },
       },
       {
-        element: new ButtonWeapon(10, Localization.text.bomb),
+        element: new ButtonBonus(10, Localization.text.bomb),
         layout: { position: { x: 2125, y: 1370 }, scale: 0.9 },
       },
       {
-        element: new ButtonWeapon(10, Localization.text.bomb),
+        element: new ButtonBonus(10, Localization.text.bomb),
         layout: { position: { x: 1725, y: 1750 }, scale: 0.9 },
       },
       {
-        element: new ButtonWeapon(10, Localization.text.bomb),
+        element: new ButtonBonus(10, Localization.text.bomb),
         layout: { position: { x: 2125, y: 1750 }, scale: 0.9 },
       },
     ];

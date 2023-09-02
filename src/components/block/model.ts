@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { EventBus } from '/shared/eventBus';
+import { EventBus } from '/classes/eventBus';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 

@@ -4,12 +4,12 @@ import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { Sprite, Text } from 'pixi.js';
 import { MVCView } from '/classes/mvc';
-import { ButtonWeaponModel } from './model';
+import { ButtonBonusModel } from './model';
 
-export class ButtonWeaponView extends MVCView<ButtonWeaponModel> {
+export class ButtonBonusView extends MVCView<ButtonBonusModel> {
   private readonly _price: Text;
 
-  constructor(model: ButtonWeaponModel) {
+  constructor(model: ButtonBonusModel) {
     const container = new Sprite(Textures.cached.textures.buttonBonus);
 
     const coin = new Sprite(Textures.cached.textures.coinSmall);
@@ -30,7 +30,7 @@ export class ButtonWeaponView extends MVCView<ButtonWeaponModel> {
     model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
   }
 
-  private valueUpdated = (model: ButtonWeaponModel) => {
+  private valueUpdated = (model: ButtonBonusModel) => {
     this._price.text = model.price;
   };
 }
