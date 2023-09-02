@@ -1,5 +1,6 @@
 import { Scene, TSceneComponent } from '/classes/scene';
 import { TSize } from '/shared/types';
+import { turtle } from '/shared/utils';
 import { Application } from 'pixi.js';
 import { Animations } from '/shared/animation';
 import { Localization } from '/shared/localozation';
@@ -70,7 +71,7 @@ export class Game {
     };
     resize();
 
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', turtle(resize, 300));
 
     const field = new Field();
 
