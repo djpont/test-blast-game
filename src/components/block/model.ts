@@ -1,5 +1,5 @@
-import { MVCModel } from '/classes/mvc';
 import { EventBus } from '/classes/eventBus';
+import { MVCModel } from '/classes/mvc';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
 import { TPosition } from '/shared/types';
 
@@ -7,24 +7,23 @@ type TColor = (typeof GAME.block.colors)[number];
 
 export class BlockModel extends MVCModel {
   public readonly gameplayBus: EventBus<BLOCKACTIONS>;
-  private _x: number;
-  private _y: number;
+  private _fieldX: number;
+  private _fieldY: number;
   private _fallingFrom: number;
-  private _alpha: number;
   private _color: TColor;
 
   constructor(x: number, y: number) {
     super();
     this.gameplayBus = new EventBus();
-    this._x = x;
-    this._y = y;
+    this._fieldX = x;
+    this._fieldY = y;
     this._fallingFrom = y;
     this.recreate();
   }
 
   public get props() {
     return {
-      position: { x: this._x, y: this._y } as TPosition,
+      position: { x: this._fieldX, y: this._fieldY } as TPosition,
       scale: this._scale,
       color: this._color,
       alpha: this._alpha,
@@ -33,8 +32,8 @@ export class BlockModel extends MVCModel {
 
   private set position(position: Partial<TPosition>) {
     const { x, y } = position;
-    if (x !== undefined) this._x = x;
-    if (y !== undefined) this._y = y;
+    if (x !== undefined) this._fieldX = x;
+    if (y !== undefined) this._fieldY = y;
     this.gameplayBus.emit(BLOCKACTIONS.updated, this);
   }
 
@@ -65,8 +64,8 @@ export class BlockModel extends MVCModel {
   };
 
   public setFallPosition = (y: number) => {
-    this._fallingFrom = this._y;
-    this._y = y;
+    this._fallingFrom = this._fieldY;
+    this._fieldY = y;
     this.gameplayBus.emit(BLOCKACTIONS.updated, this);
   };
 

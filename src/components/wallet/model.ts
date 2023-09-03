@@ -1,6 +1,6 @@
+import { MVCModel } from '/classes/mvc';
 import { UIACTIONS } from '/shared/constants';
 import { TCallback } from '/shared/types';
-import { MVCModel } from '/classes/mvc';
 
 export class WalletModel extends MVCModel {
   private _value: number;

@@ -1,9 +1,9 @@
+import { MVCView } from '/classes/mvc';
 import { GAME, UIACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { Sprite, Text } from 'pixi.js';
-import { MVCView } from '/classes/mvc';
 import { ButtonBonusModel } from './model';
 
 export class ButtonBonusView extends MVCView<ButtonBonusModel> {

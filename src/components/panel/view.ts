@@ -1,10 +1,10 @@
+import { MVCView } from '/classes/mvc';
 import { GAME, UIACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { Sprite, Text } from 'pixi.js';
-import { MVCView } from '/classes/mvc';
 import { PanelModel } from './model';
 
 export class PanelView extends MVCView<PanelModel> {

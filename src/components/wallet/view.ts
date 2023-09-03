@@ -1,9 +1,9 @@
+import { MVCView } from '/classes/mvc';
 import { GAME, UIACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { Container, NineSlicePlane, Sprite, Text } from 'pixi.js';
-import { MVCView } from '/classes/mvc';
 import { WalletModel } from './model';
 
 export class WalletView extends MVCView<WalletModel> {

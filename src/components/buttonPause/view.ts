@@ -1,6 +1,6 @@
+import { MVCView } from '/classes/mvc';
 import { Textures } from '/shared/textures';
 import { Sprite } from 'pixi.js';
-import { MVCView } from '/classes/mvc';
 import { ButtonPauseModel } from './model';
 
 export class ButtonPauseView extends MVCView<ButtonPauseModel> {
