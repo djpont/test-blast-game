@@ -10,4 +10,4 @@ export type TSize = {
 
 export type PromiseResolver<T = unknown> = (value: T) => unknown;
 
-export type TCallback = (...args: unknown[]) => unknown;
+export type TCallback<T = unknown> = (...args: T[]) => unknown;
