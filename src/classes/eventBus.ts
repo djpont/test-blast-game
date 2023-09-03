@@ -1,4 +1,5 @@
-type TCallback = (...args: unknown[]) => unknown;
+import { TCallback } from '/shared/types';
+
 type TListener<T> = { action: T; callback: TCallback };
 
 export class EventBus<T> {
