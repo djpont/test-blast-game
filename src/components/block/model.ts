@@ -1,40 +1,31 @@
 import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
+import { Animations } from '/shared/animation';
 import { BLOCKACTIONS, GAME } from '/shared/constants';
-import { TPosition } from '/shared/types';
+import { TCallback, TPosition } from '/shared/types';
 
 type TColor = (typeof GAME.block.colors)[number];
 
 export class BlockModel extends MVCModel {
-  public readonly gameplayBus: EventBus<BLOCKACTIONS>;
+  public readonly _blockEventBus: EventBus<BLOCKACTIONS>;
   private _fieldX: number;
   private _fieldY: number;
-  private _fallingFrom: number;
+  private _disappeared: boolean;
   private _color: TColor;
 
-  constructor(x: number, y: number) {
-    super();
-    this.gameplayBus = new EventBus();
-    this._fieldX = x;
-    this._fieldY = y;
-    this._fallingFrom = y;
+  constructor(position: TPosition, fieldPosition: TPosition) {
+    super(position);
+    this._blockEventBus = new EventBus();
+    this.changeFieldPosition(fieldPosition);
     this.recreate();
   }
 
-  public get props() {
+  public get blockProps() {
     return {
-      position: { x: this._fieldX, y: this._fieldY } as TPosition,
-      scale: this._scale,
+      fieldPosition: { x: this._fieldX, y: this._fieldY } as TPosition,
       color: this._color,
-      alpha: this._alpha,
-    };
-  }
-
-  private set position(position: Partial<TPosition>) {
-    const { x, y } = position;
-    if (x !== undefined) this._fieldX = x;
-    if (y !== undefined) this._fieldY = y;
-    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
+      disappeared: this._disappeared,
+    } as const;
   }
 
   private randomizeColor = (): void => {
@@ -43,33 +34,40 @@ export class BlockModel extends MVCModel {
     this._color = colors[randomIndex];
   };
 
-  private reset = (): void => {
-    this._scale = 1;
-    this._alpha = 1;
-  };
-
-  public recreate = (position: TPosition | undefined = undefined) => {
-    if (position) this.position = position;
+  public recreate = (): void => {
+    this._disappeared = false;
     this.randomizeColor();
-    this.reset();
-    this.gameplayBus.emit(BLOCKACTIONS.recreated, this);
+    this.changeProps.reset();
+    this._blockEventBus.emit(BLOCKACTIONS.spriteUpdated, this);
   };
 
-  public zoomingOut = (delta: number): void => {
-    const diffZoom = GAME.animationSpeed.scale * delta;
-    const diffOpacity = GAME.animationSpeed.opacity * delta;
-    this._scale -= diffZoom;
-    this._alpha -= diffOpacity;
-    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
+  public changeFieldPosition = (position: TPosition): void => {
+    this._fieldX = position.x;
+    this._fieldY = position.y;
+    this._blockEventBus.emit(BLOCKACTIONS.fieldPositionUpdated, this);
   };
 
-  public setFallPosition = (y: number) => {
-    this._fallingFrom = this._fieldY;
-    this._fieldY = y;
-    this.gameplayBus.emit(BLOCKACTIONS.updated, this);
-  };
+  public disappear = async (
+    duration: number = 0,
+    callback: TCallback = undefined,
+    middleCallback: TCallback = undefined,
+  ) => {
+    const scaleFrom = this._scale;
+    const alphaFrom = this._alpha;
+    let middleCallbackCalled = false;
 
-  public falling = (delta: number) => {
-    this.gameplayBus.emit(BLOCKACTIONS.falling, this, delta);
+    const fn = (step: number) => {
+      const scale = (1 - step / 2) * scaleFrom;
+      const alpha = (1 - step) * alphaFrom;
+      this.changeProps.scale(scale);
+      this.changeProps.alpha(alpha);
+      if (step > 0 && !middleCallbackCalled) {
+        middleCallbackCalled = true;
+        this._disappeared = true;
+        middleCallback?.();
+      }
+    };
+
+    return Animations.add(fn, duration, callback);
   };
 }

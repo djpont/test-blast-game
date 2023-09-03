@@ -10,18 +10,11 @@ export class BlockController extends MVCController<BlockModel, BlockView> {
     return this._model.recreate;
   }
 
-  get zoomingOut() {
-    return {
-      do: this._model.zoomingOut,
-      check: () => this._model.props.alpha > 0,
-    };
+  get changeFieldPosition() {
+    return this._model.changeFieldPosition;
   }
 
-  get falling() {
-    return {
-      do: this._model.falling,
-      set: this._model.setFallPosition,
-      check: () => this._view.isFalling(this._model),
-    };
+  get disappear() {
+    return this._model.disappear;
   }
 }

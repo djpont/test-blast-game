@@ -21,6 +21,10 @@ export abstract class MVCController<TModel extends MVCModel, TView extends MVCVi
     return this._model.changeProps;
   }
 
+  public get moveTo() {
+    return this._model.moveTo;
+  }
+
   public get registerPixiEvent() {
     return this._view.registerPixiEvent;
   }
