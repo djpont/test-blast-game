@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { UIACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/constants';
 
 export class ButtonBonusModel extends MVCModel {
   private _price: number;
@@ -17,7 +17,7 @@ export class ButtonBonusModel extends MVCModel {
 
   public set price(value: number) {
     this._price = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 
   public get title() {

@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { UIACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/constants';
 
 export class ButtonModel extends MVCModel {
   private _text: string;
@@ -17,7 +17,7 @@ export class ButtonModel extends MVCModel {
 
   public set text(value: string) {
     this._text = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 
   public get width() {
@@ -26,6 +26,6 @@ export class ButtonModel extends MVCModel {
 
   public set width(value: number) {
     this._width = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 }

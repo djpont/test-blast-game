@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, UIACTIONS } from '/shared/constants';
+import { GAME, MVCACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
@@ -35,8 +35,8 @@ export class ProgressBarView extends MVCView<ProgressBarModel> {
       fillBarBackground.width -
       LAYOUT.progress.fillPadding.left -
       LAYOUT.progress.fillPadding.right;
-    model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
-    model.eventBus.emit(UIACTIONS.valueUpdated, model);
+    model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
+    model.mvcEventBus.emit(MVCACTIONS.valueUpdated, model);
   }
 
   private valueUpdated = (model: ProgressBarModel) => {

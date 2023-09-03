@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { UIACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/constants';
 
 export class ProgressBarModel extends MVCModel {
   private _value: number;
@@ -16,6 +16,6 @@ export class ProgressBarModel extends MVCModel {
   public set value(value: number) {
     value = value < 0 ? 0 : value > 1 ? 1 : value;
     this._value = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 }

@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, UIACTIONS } from '/shared/constants';
+import { GAME, MVCACTIONS } from '/shared/constants';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { NineSlicePlane, Text } from 'pixi.js';
@@ -23,8 +23,8 @@ export class ButtonView extends MVCView<ButtonModel> {
     super(model, sprite);
     this._sprite = sprite;
     this._text = text;
-    model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
-    model.eventBus.emit(UIACTIONS.valueUpdated, model);
+    model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
+    model.mvcEventBus.emit(MVCACTIONS.valueUpdated, model);
   }
 
   private valueUpdated = (model: ButtonModel) => {

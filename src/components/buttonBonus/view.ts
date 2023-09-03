@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, UIACTIONS } from '/shared/constants';
+import { GAME, MVCACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
@@ -24,10 +24,8 @@ export class ButtonBonusView extends MVCView<ButtonBonusModel> {
     title.style.fontSize = LAYOUT.buttons.weapon.title.size;
 
     super(model, container);
-    this._container.eventMode = 'static';
-    this._container.cursor = 'pointer';
     this._price = price;
-    model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
+    model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
   }
 
   private valueUpdated = (model: ButtonBonusModel) => {
