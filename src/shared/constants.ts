@@ -2,6 +2,7 @@
 import { DisplayObjectEvents, TextStyle } from 'pixi.js';
 
 const blockColorNames = ['blue', 'purple', 'red', 'green', 'yellow'] as const;
+// const blockColorNames = ['blue', 'red'] as const;
 
 const textureNames = [
   'barBackground',
@@ -25,16 +26,17 @@ export enum ANIMATIONS {
   falling = 'falling',
 }
 
-export enum UIACTIONS {
+export enum MVCACTIONS {
   propsUpdated = 'propsUpdated',
+  positionUpdated = 'positionUpdated',
+  scaleUpdated = 'scaleUpdated',
+  alphaUpdated = 'alphaUpdated',
   valueUpdated = 'valueUpdated',
-  callbackUpdated = 'callbackUpdated',
 }
 
 export enum BLOCKACTIONS {
-  updated = 'updated',
-  recreated = 'recreated',
-  falling = 'falling',
+  fieldPositionUpdated = 'fieldPositionUpdated',
+  spriteUpdated = 'spriteUpdates',
 }
 
 export enum WEAPONS {
@@ -44,7 +46,7 @@ export enum WEAPONS {
   vertical = 'vertical',
 }
 
-const gameInitialConstants = {
+export const GAME = {
   language: 'ru',
   field: {
     width: 10,
@@ -53,20 +55,18 @@ const gameInitialConstants = {
   block: {
     size: 172,
     head: 0.12,
-    newGap: 0,
-    pivot: { x: 0.5, y: 0.5 },
+    pivot: { x: 0.5, y: 0.62 },
     colors: blockColorNames,
   },
   textures: {
     names: textureNames,
   },
   animationSpeed: {
-    fall: 0.1,
-    scale: 0.03,
-    opacity: 0.05,
+    fall: 250,
     disappearDelay: 50,
+    disappear: 300,
   },
-  minimumHit: 2,
+  minimumHit: 1,
   textStyle: new TextStyle({
     fontFamily: 'Marvin',
     align: 'center',
@@ -74,11 +74,4 @@ const gameInitialConstants = {
     fontSize: '50px',
   }),
   pointerEvent: 'pointerdown' as keyof DisplayObjectEvents,
-};
-
-export const GAME = {
-  ...gameInitialConstants,
-  setNewGap: (value: number) => {
-    gameInitialConstants.block.newGap = value;
-  },
-};
+} as const;
