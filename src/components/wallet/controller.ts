@@ -1,5 +1,4 @@
 import { MVCController } from '/classes/mvc';
-import { TCallback } from '/shared/types';
 import { WalletModel } from './model';
 import { WalletView } from './view';
 
@@ -11,12 +10,6 @@ export class WalletController extends MVCController<WalletModel, WalletView> {
   public get changeValue() {
     return (value: number) => {
       this._model.value = value;
-    };
-  }
-
-  public get changeCallback() {
-    return (callback: TCallback) => {
-      this._model.callback = callback;
     };
   }
 }

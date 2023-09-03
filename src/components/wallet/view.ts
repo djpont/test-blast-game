@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, UIACTIONS } from '/shared/constants';
+import { GAME, MVCACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
@@ -31,26 +31,19 @@ export class WalletView extends MVCView<WalletModel> {
     plus.height = plus.width = background.height * 0.85;
     Placer.locateByCenter(plus, background);
     plus.position.x = background.width + 80;
-    plus.eventMode = 'static';
     plus.cursor = 'pointer';
+    plus.eventMode = 'static';
 
     super(model, container);
     this._text = text;
     this._plus = plus;
-    model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
-    model.eventBus.emit(UIACTIONS.valueUpdated, model);
-    model.eventBus.on(UIACTIONS.callbackUpdated, this.callbackUpdated);
+    model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
+    model.mvcEventBus.emit(MVCACTIONS.valueUpdated, model);
+
+    // this._plus.on(GAME.pointerEvent, model.callback)
   }
 
   private valueUpdated = (model: WalletModel) => {
     this._text.text = model.value;
-  };
-
-  private callbackUpdated = (model: WalletModel) => {
-    this._plus.removeAllListeners(GAME.pointerEvent);
-    if (model.callback) {
-      console.log('callbackUpdated');
-      this._plus.on(GAME.pointerEvent, model.callback);
-    }
   };
 }
