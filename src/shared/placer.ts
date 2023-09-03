@@ -1,6 +1,6 @@
 import { LAYOUT } from '/shared/layout';
 import { TPosition } from '/shared/types';
-import { Container, NineSlicePlane, Sprite, Text } from 'pixi.js';
+import { Container, Graphics, NineSlicePlane, Sprite, Text } from 'pixi.js';
 
 type TLayout = {
   anchor?: Partial<TPosition>;
@@ -38,7 +38,7 @@ const locateByCenter = (
   locate(element, parent, newLayout);
 };
 
-const locateInsideAndScale = (element: Container, parent: Container): void => {
+const locateInsideAndScale = (element: Container, parent: Container): number => {
   parent.addChild(element);
   const scaleDiffX = element.width / (parent.width - LAYOUT.field.padding * 2);
   const scaleDiffY = element.height / (parent.height - LAYOUT.field.padding * 2);
@@ -47,10 +47,21 @@ const locateInsideAndScale = (element: Container, parent: Container): void => {
   element.scale.y /= scaleDiff;
   element.position.x = (parent.width - element.width) / 2;
   element.position.y = parent.height - element.height - LAYOUT.field.padding;
+  return scaleDiff;
+};
+
+const addMask = (container: Container): void => {
+  const mask = new Graphics();
+  mask.beginFill(0xffffff);
+  mask.drawRect(0, 0, container.width, container.height);
+  mask.endFill();
+  container.addChild(mask);
+  container.mask = mask;
 };
 
 export const Placer = {
   locate,
   locateByCenter,
   locateInsideAndScale,
+  addMask,
 };
