@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, UIACTIONS } from '/shared/constants';
+import { GAME, MVCACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
@@ -9,7 +9,7 @@ import { PanelModel } from './model';
 
 export class PanelView extends MVCView<PanelModel> {
   private readonly _score: Text;
-  private readonly _movesLeft: Text;
+  private readonly _moves: Text;
 
   constructor(model: PanelModel) {
     const container = new Sprite(Textures.cached.textures.panelBackground);
@@ -28,19 +28,19 @@ export class PanelView extends MVCView<PanelModel> {
     const movesLeftBackground = new Sprite(Textures.cached.textures.panelMoves);
     Placer.locateByCenter(movesLeftBackground, container, LAYOUT.panel.movesLeft.background);
 
-    const movesLeft = new Text('37', GAME.textStyle.clone());
-    Placer.locateByCenter(movesLeft, movesLeftBackground, LAYOUT.panel.movesLeft.text);
-    movesLeft.style.fontSize = LAYOUT.panel.movesLeft.text.size;
+    const moves = new Text('37', GAME.textStyle.clone());
+    Placer.locateByCenter(moves, movesLeftBackground, LAYOUT.panel.movesLeft.text);
+    moves.style.fontSize = LAYOUT.panel.movesLeft.text.size;
 
     super(model, container);
     this._score = score;
-    this._movesLeft = movesLeft;
-    model.eventBus.on(UIACTIONS.valueUpdated, this.valueUpdated);
-    model.eventBus.emit(UIACTIONS.valueUpdated, model);
+    this._moves = moves;
+    model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
+    model.mvcEventBus.emit(MVCACTIONS.valueUpdated, model);
   }
 
   private valueUpdated = (model: PanelModel) => {
     this._score.text = model.score;
-    this._movesLeft.text = model.movesLeft;
+    this._moves.text = model.moves;
   };
 }

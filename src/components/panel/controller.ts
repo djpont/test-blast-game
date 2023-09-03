@@ -13,9 +13,9 @@ export class PanelController extends MVCController<PanelModel, PanelView> {
     };
   }
 
-  public get changeMovesLeft() {
+  public get changeMoves() {
     return (value: number) => {
-      this._model.movesLeft = value;
+      this._model.moves = value;
     };
   }
 }

@@ -1,14 +1,14 @@
 import { MVCModel } from '/classes/mvc';
-import { UIACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/constants';
 
 export class PanelModel extends MVCModel {
   private _score: number;
-  private _movesLeft: number;
+  private _moves: number;
 
   constructor() {
     super();
     this._score = 0;
-    this._movesLeft = 0;
+    this._moves = 0;
   }
 
   public get score() {
@@ -17,15 +17,15 @@ export class PanelModel extends MVCModel {
 
   public set score(value: number) {
     this._score = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 
-  public get movesLeft() {
-    return this._movesLeft;
+  public get moves() {
+    return this._moves;
   }
 
-  public set movesLeft(value: number) {
-    this._movesLeft = value;
-    this.eventBus.emit(UIACTIONS.valueUpdated, this);
+  public set moves(value: number) {
+    this._moves = value;
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 }
