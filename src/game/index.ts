@@ -1,6 +1,6 @@
 import { Scene, TSceneComponent } from '/classes/scene';
 import { TSize } from '/shared/types';
-import { turtle } from '/shared/utils';
+import { Utils } from '/shared/utils';
 import { Application } from 'pixi.js';
 import { Animations } from '/shared/animation';
 import { Localization } from '/shared/localozation';
@@ -71,7 +71,20 @@ export class Game {
     };
     resize();
 
-    window.addEventListener('resize', turtle(resize, 300));
+    window.addEventListener('resize', Utils.turtle(resize, 300));
+
+    // const p2: TPosition = { x: 200, y: 200 };
+    //
+    // const b = new Block(0, 0);
+    // b.controller.addToContainer(app.stage);
+    //
+    // setTimeout(() => {
+    //   b.controller.moveTo(p2, 1000);
+    // }, 1000);
+    //
+    // app.ticker.add(delta => {
+    //   Animations.play(delta);
+    // });
 
     const field = new Field();
 
@@ -118,24 +131,8 @@ export class Game {
 
     const gameMechanics = new GameMechanics(field);
     new GameController(field, gameMechanics);
-
     app.ticker.add(delta => {
       Animations.play(delta);
-      // if (BlastBlock.animatedBlocks.length) {
-      //   BlastBlock.animatedBlocks.forEach(block => {
-      //     block.playAnimation(delta);
-      //   });
-      // }
-      // if (BlastBlock.disappearedBlocks.length) {
-      //   BlastMechanics.checkDisappearedBlocks(field.model);
-      //   field.view.element.sortChildren();
-      // }
     });
-
-    // setTimeout(() => {
-    //   // fieldContainer.scale.x = 0.2;
-    //   // fieldContainer.scale.y = 0.2;
-    //   field.controller.reset();
-    // }, 4000);
   };
 }

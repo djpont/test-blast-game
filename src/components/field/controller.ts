@@ -1,6 +1,4 @@
 import { MVCController } from '/classes/mvc';
-import { Block } from '/components/block';
-import { UIACTIONS } from '/shared/constants';
 import { FieldModel } from './model';
 import { FieldView } from './view';
 
@@ -17,25 +15,11 @@ export class FieldController extends MVCController<FieldModel, FieldView> {
     return this._model.registerBlocksEvent;
   }
 
-  public recreateBlocks = (blocks: Block[]) => {
-    blocks.forEach(block => {
-      const newPosition = this._model.getUpperEmptyPosition(block.props.position);
-      block.controller.recreate(newPosition);
-    });
-  };
+  get recreateBlocks() {
+    return this._model.recreateBlocks;
+  }
 
-  public fallBlocks = (): Block[] => {
-    const blocksWillFall: Block[] = [];
-    this._model.verticals().forEach(vertical => {
-      for (let y = vertical.length - 1; y >= 0; y--) {
-        const block = vertical[y];
-        if (block.props.position.y < y) {
-          block.controller.falling.set(y);
-          blocksWillFall.push(block);
-        }
-      }
-    });
-    this._model.eventBus.emit(UIACTIONS.valueUpdated);
-    return blocksWillFall;
-  };
+  get fallBlocks() {
+    return this._model.fallBlocks;
+  }
 }

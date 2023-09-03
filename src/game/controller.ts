@@ -14,9 +14,11 @@ export class GameController {
 
   private clickOnBlock = async (block: Block) => {
     if (this._playerMayClick) {
+      console.log('playerMayClick = false');
       this._playerMayClick = false;
       await this._mechanics.clickOnBlock(block);
       this._playerMayClick = true;
+      console.log('playerMayClick = true');
     }
   };
 }

@@ -12,19 +12,12 @@ export class Field extends MVCComponent<FieldModel, FieldView, FieldController> 
     super(model, view, controller);
   }
 
-  public get model() {
-    const { map, size, blocks, getRectNeighbours, getSameNeighbours, getLineNeighbours } =
-      this._model;
-    return {
-      map,
-      size,
-      blocks,
-      getNeighbours: {
-        rect: getRectNeighbours,
-        same: getSameNeighbours,
-        line: getLineNeighbours,
-      },
-    };
+  public get fieldProps() {
+    return this._model.fieldProps;
+  }
+
+  public get neighbours() {
+    return this._model.neighbours;
   }
 
   public get controller(): FieldController {
