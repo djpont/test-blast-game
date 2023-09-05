@@ -1,8 +1,9 @@
 import { ButtonBonus, ButtonPause, Field, Panel, ProgressBar, Wallet } from '/components';
+import { gameSceneController } from '/scenes/game/controller';
 import { Localization } from '/shared/localozation';
-import { TGameSceneSchema } from './types';
+import { TGameSceneCallbacks, TGameSceneSchema } from './types';
 
-export const gameSceneSchema = (): TGameSceneSchema => {
+export const gameSceneSchema = (callbacks: TGameSceneCallbacks): TGameSceneSchema => {
   return {
     layout: {
       size: {
@@ -10,6 +11,8 @@ export const gameSceneSchema = (): TGameSceneSchema => {
         height: 2120,
       },
     },
+    controller: gameSceneController,
+    callbacks,
     content: {
       progressBar: {
         element: new ProgressBar(2220),
