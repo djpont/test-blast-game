@@ -3,7 +3,6 @@ export const LAYOUT = {
     width: 2540,
     height: 2120,
     backgroundColor: '#1099bb',
-    pixelScale: 0.5,
   },
   panel: {
     score: {

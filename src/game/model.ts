@@ -19,9 +19,10 @@ export class GameModel extends MVCModel {
   }
 
   public createApp = (root: HTMLElement) => {
+    const pixelRatio = window.devicePixelRatio ?? 1;
     const appSize: TSize = {
-      width: LAYOUT.app.width * LAYOUT.app.pixelScale,
-      height: LAYOUT.app.height * LAYOUT.app.pixelScale,
+      width: LAYOUT.app.width * pixelRatio,
+      height: LAYOUT.app.height * pixelRatio,
     };
     const app = new Application({ ...appSize, backgroundColor: LAYOUT.app.backgroundColor });
     Placer.addMask(app.stage, appSize, true);
@@ -50,6 +51,9 @@ export class GameModel extends MVCModel {
         this.showSecond();
       },
     };
+    setTimeout(() => {
+      callbacks.startGame();
+    }, 100);
     const scene = new Scene(ScenesSchemas.intro(callbacks));
     this.showScene(scene, true);
   };
@@ -65,7 +69,12 @@ export class GameModel extends MVCModel {
   };
 
   private showGame = () => {
-    const scene = new Scene(ScenesSchemas.game());
+    const callbacks = {
+      back: () => {
+        this.showIntro();
+      },
+    };
+    const scene = new Scene(ScenesSchemas.game(callbacks));
     this.showScene(scene, true);
   };
 
