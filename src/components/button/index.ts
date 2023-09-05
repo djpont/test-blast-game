@@ -1,7 +1,7 @@
 import { MVCComponent } from '/classes/mvc';
-import { ButtonController } from './controller';
 import { ButtonModel } from './model';
 import { ButtonView } from './view';
+import { ButtonController } from './controller';
 
 type TColors = 'pink' | 'purple';
 
