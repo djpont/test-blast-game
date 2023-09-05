@@ -78,9 +78,18 @@ const addMask = (
   container.addChild(mask);
 };
 
+const addBackground = (container: Container, color: string): void => {
+  const containerCorners = new Graphics();
+  containerCorners.beginFill(color);
+  containerCorners.drawRect(0, 0, container.width, container.height);
+  containerCorners.endFill();
+  container.addChild(containerCorners);
+};
+
 export const Placer = {
   locate,
   locateByCenter,
   locateInsideAndScale,
   addMask,
+  addBackground,
 };
