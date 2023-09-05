@@ -1,4 +1,4 @@
-import { Gameplay } from '/gameplay';
+import { Gameplay, type TGameplayContent } from '/gameplay';
 import { GAME } from '/shared/constants';
 import { TSceneController } from '/shared/types';
 import { TGameSceneCallbacks, TGameSceneContent } from './types';
@@ -7,8 +7,14 @@ export const gameSceneController: TSceneController = (
   content: TGameSceneContent,
   callbacks: TGameSceneCallbacks,
 ) => {
-  // console.log('gameSceneController function', content);
-  let gameplay = new Gameplay();
+  const gameplayContent: TGameplayContent = {
+    field: content.field.element,
+    progressBar: content.progressBar.element,
+    panel: content.panel.element,
+    wallet: content.wallet.element,
+  };
+
+  new Gameplay(gameplayContent);
 
   const pause = () => {
     callbacks.back();
