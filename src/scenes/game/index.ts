@@ -1,0 +1,1 @@
+export { gameSceneSchema } from './schema';
