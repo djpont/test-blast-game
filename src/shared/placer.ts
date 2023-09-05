@@ -1,5 +1,4 @@
-import { LAYOUT } from '/shared/layout';
-import { TPosition } from '/shared/types';
+import { TPosition, TSize } from '/shared/types';
 import { Container, Graphics, NineSlicePlane, Sprite, Text } from 'pixi.js';
 
 type TLayout = {
@@ -38,25 +37,45 @@ const locateByCenter = (
   locate(element, parent, newLayout);
 };
 
-const locateInsideAndScale = (element: Container, parent: Container): number => {
-  parent.addChild(element);
-  const scaleDiffX = element.width / (parent.width - LAYOUT.field.padding * 2);
-  const scaleDiffY = element.height / (parent.height - LAYOUT.field.padding * 2);
+const locateInsideAndScale = (
+  element: Container,
+  parent: Container,
+  padding: number = 0,
+): number => {
+  const scaleDiffX = element.width / (parent.width - padding * 2);
+  const scaleDiffY = element.height / (parent.height - padding * 2);
   const scaleDiff = Math.max(scaleDiffX, scaleDiffY);
   element.scale.x /= scaleDiff;
   element.scale.y /= scaleDiff;
   element.position.x = (parent.width - element.width) / 2;
-  element.position.y = parent.height - element.height - LAYOUT.field.padding;
+  element.position.y = (parent.height - element.height) / 2;
+  parent.addChild(element);
   return scaleDiff;
 };
 
-const addMask = (container: Container): void => {
+const addMask = (
+  container: Container,
+  size: TSize = undefined,
+  addCorners: boolean = false,
+): void => {
+  if (addCorners && size) {
+    const containerCorners = new Graphics();
+    const ccsize = 10;
+    containerCorners.beginFill('#fff');
+    containerCorners.drawRect(0, 0, ccsize, ccsize);
+    containerCorners.drawRect(0, size.height - ccsize, ccsize, ccsize);
+    containerCorners.drawRect(size.width - ccsize, 0, ccsize, ccsize);
+    containerCorners.drawRect(size.width - ccsize, size.height - ccsize, ccsize, ccsize);
+    containerCorners.endFill();
+    container.addChild(containerCorners);
+  }
+
   const mask = new Graphics();
   mask.beginFill(0xffffff);
-  mask.drawRect(0, 0, container.width, container.height);
+  mask.drawRect(0, 0, size ? size.width : container.width, size ? size.height : container.height);
   mask.endFill();
-  container.addChild(mask);
   container.mask = mask;
+  container.addChild(mask);
 };
 
 export const Placer = {
