@@ -8,6 +8,7 @@ const localizationNames = [
   'superVertical',
   'superHorizontal',
   'progress',
+  'startGame',
 ] as const;
 
 type TLocalization = {
@@ -22,6 +23,7 @@ const english: TLocalization = {
   superVertical: 'Vertical',
   superHorizontal: 'Horizontal',
   progress: 'Progress',
+  startGame: 'Start game',
 };
 
 const russian: TLocalization = {
@@ -32,6 +34,7 @@ const russian: TLocalization = {
   superVertical: 'Вертик.',
   superHorizontal: 'Гориз.',
   progress: 'Прогресс',
+  startGame: 'Начать игру',
 };
 
 const selectLocalization = (): TLocalization => {
