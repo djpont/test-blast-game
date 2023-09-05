@@ -1,0 +1,1 @@
+export { secondSceneSchema } from './schema';
