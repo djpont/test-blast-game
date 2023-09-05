@@ -1,0 +1,1 @@
+export { introSceneSchema } from './schema';
