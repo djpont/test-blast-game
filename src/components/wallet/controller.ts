@@ -12,4 +12,8 @@ export class WalletController extends MVCController<WalletModel, WalletView> {
       this._model.value = value;
     };
   }
+
+  public get changeCallback() {
+    return this._model.changeCallback;
+  }
 }

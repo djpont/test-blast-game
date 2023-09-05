@@ -31,19 +31,22 @@ export class WalletView extends MVCView<WalletModel> {
     plus.height = plus.width = background.height * 0.85;
     Placer.locateByCenter(plus, background);
     plus.position.x = background.width + 80;
-    plus.cursor = 'pointer';
-    plus.eventMode = 'static';
 
     super(model, container);
     this._text = text;
     this._plus = plus;
     model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.valueUpdated);
-    model.mvcEventBus.emit(MVCACTIONS.valueUpdated, model);
-
-    // this._plus.on(GAME.pointerEvent, model.callback)
+    model.mvcEventBus.on(MVCACTIONS.callbackUpdated, this.callbackUpdated);
+    this.valueUpdated(model);
   }
 
   private valueUpdated = (model: WalletModel) => {
     this._text.text = model.value;
+  };
+
+  private callbackUpdated = (model: WalletModel) => {
+    this._plus.cursor = 'pointer';
+    this._plus.eventMode = 'static';
+    this._plus.on(GAME.pointerEvent, model.callback);
   };
 }
