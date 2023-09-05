@@ -45,6 +45,7 @@ export enum WEAPONS {
   bomb = 'bomb',
   horizontal = 'horizontal',
   vertical = 'vertical',
+  shuffle = 'shuffle',
 }
 
 export enum GAMEACTIONS {
@@ -57,8 +58,8 @@ export enum GAMEACTIONS {
 export const GAME = {
   language: 'ru',
   field: {
-    width: 10,
-    height: 10,
+    width: 4,
+    height: 4,
   },
   block: {
     size: 172,
@@ -75,6 +76,12 @@ export const GAME = {
     disappear: 300,
   },
   minimumHit: 2,
+  bonusPrice: {
+    bomb: 20,
+    shuffle: 10,
+    vertical: 15,
+    horizontal: 15,
+  },
   textStyle: new TextStyle({
     fontFamily: 'Marvin',
     align: 'center',
