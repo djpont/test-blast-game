@@ -7,10 +7,10 @@ export type TGameSceneContent = {
   field: TSceneComponent<Field>;
   panel: TSceneComponent<Panel>;
   wallet: TSceneComponent<Wallet>;
-  buttonBonus1: TSceneComponent<ButtonBonus>;
-  buttonBonus2: TSceneComponent<ButtonBonus>;
-  buttonBonus3: TSceneComponent<ButtonBonus>;
-  buttonBonus4: TSceneComponent<ButtonBonus>;
+  buttonBonusBomb: TSceneComponent<ButtonBonus>;
+  buttonBonusShuffle: TSceneComponent<ButtonBonus>;
+  buttonBonusVertical: TSceneComponent<ButtonBonus>;
+  buttonBonusHorizontal: TSceneComponent<ButtonBonus>;
 };
 
 export type TGameSceneSchema = {

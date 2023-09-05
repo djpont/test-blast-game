@@ -12,6 +12,10 @@ export const gameSceneController: TSceneController = (
     progressBar: content.progressBar.element,
     panel: content.panel.element,
     wallet: content.wallet.element,
+    buttonBonusBomb: content.buttonBonusBomb.element,
+    buttonBonusVertical: content.buttonBonusVertical.element,
+    buttonBonusHorizontal: content.buttonBonusHorizontal.element,
+    buttonBonusShuffle: content.buttonBonusShuffle.element,
   };
 
   new Gameplay(gameplayContent);

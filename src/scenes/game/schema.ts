@@ -1,5 +1,6 @@
 import { ButtonBonus, ButtonPause, Field, Panel, ProgressBar, Wallet } from '/components';
 import { gameSceneController } from '/scenes/game/controller';
+import { GAME } from '/shared/constants';
 import { Localization } from '/shared/localozation';
 import { TGameSceneCallbacks, TGameSceneSchema } from './types';
 
@@ -34,20 +35,20 @@ export const gameSceneSchema = (callbacks: TGameSceneCallbacks): TGameSceneSchem
         element: new Wallet(),
         layout: { position: { x: 1740, y: 1170 }, scale: 1 },
       },
-      buttonBonus1: {
-        element: new ButtonBonus(10, Localization.text.bomb),
+      buttonBonusBomb: {
+        element: new ButtonBonus(GAME.bonusPrice.bomb, Localization.text.bonusBomb),
         layout: { position: { x: 1725, y: 1370 }, scale: 0.9 },
       },
-      buttonBonus2: {
-        element: new ButtonBonus(10, Localization.text.bomb),
+      buttonBonusShuffle: {
+        element: new ButtonBonus(GAME.bonusPrice.shuffle, Localization.text.bonusShuffle),
         layout: { position: { x: 2125, y: 1370 }, scale: 0.9 },
       },
-      buttonBonus3: {
-        element: new ButtonBonus(10, Localization.text.bomb),
+      buttonBonusVertical: {
+        element: new ButtonBonus(GAME.bonusPrice.vertical, Localization.text.bonusVertical),
         layout: { position: { x: 1725, y: 1750 }, scale: 0.9 },
       },
-      buttonBonus4: {
-        element: new ButtonBonus(10, Localization.text.bomb),
+      buttonBonusHorizontal: {
+        element: new ButtonBonus(GAME.bonusPrice.horizontal, Localization.text.bonusHorizontal),
         layout: { position: { x: 2125, y: 1750 }, scale: 0.9 },
       },
     },
