@@ -1,4 +1,5 @@
 import { MVCView } from '/classes/mvc';
+import { LAYOUT } from '/shared/layout';
 import { Placer } from '/shared/placer';
 import { Textures } from '/shared/textures';
 import { Container, Sprite } from 'pixi.js';
@@ -17,7 +18,9 @@ export class FieldView extends MVCView<FieldModel> {
     this._blocksContainer = blocksContainer;
     model.blocks.forEach(block => block.controller.addToContainer(blocksContainer));
 
-    const scale = Placer.locateInsideAndScale(blocksContainer, container);
+    const scale = Placer.locateInsideAndScale(blocksContainer, container, LAYOUT.field.padding);
+    blocksContainer.position.y = container.height - blocksContainer.height - LAYOUT.field.padding;
+
     model.updateNewBlockPositionY(blocksContainer.position.y * scale);
 
     model.mvcEventBus.on(MVCACTIONS.valueUpdated, this.sort);
