@@ -1,18 +1,16 @@
+import { Animations } from '/shared/animation';
 import { Placer } from '/shared/placer';
 import { TSize } from '/shared/types';
 import { Application, Container } from 'pixi.js';
-import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
 import { Scene } from '/components/scene';
 import { ScenesSchemas } from '/scenes';
-import { GAMEACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
 
 export class GameModel extends MVCModel {
   private _stage: Container;
   private _stageRootChildrenCount: number = 1;
   private _currentScene: Scene;
-  public gameEventBus = new EventBus<GAMEACTIONS>();
 
   constructor() {
     super();
@@ -25,6 +23,7 @@ export class GameModel extends MVCModel {
       height: LAYOUT.app.height * pixelRatio,
     };
     const app = new Application({ ...appSize, backgroundColor: LAYOUT.app.backgroundColor });
+    root.appendChild(app.view as HTMLCanvasElement);
     Placer.addMask(app.stage, appSize, true);
     this._stage = app.stage;
 
@@ -37,9 +36,10 @@ export class GameModel extends MVCModel {
 
     resizeApp();
     window.addEventListener('resize', resizeApp);
-
-    root.appendChild(app.view as HTMLCanvasElement);
     this.showIntro();
+    // this.showGame();
+
+    app.ticker.add(delta => Animations.play(delta));
   };
 
   private showIntro = () => {
