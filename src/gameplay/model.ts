@@ -45,6 +45,15 @@ export class GameplayModel extends MVCModel {
     this._coins = 50;
     this._scorePerBlock = 5;
     this.resetWeapon();
+    this.resetField(false);
+  };
+
+  private resetField = (shuffle: boolean) => {
+    let trys = 1000;
+    do {
+      this._content.field.controller.reset(shuffle);
+      trys--;
+    } while (trys && !this._content.field.controller.checkAvailableTurns(this._minimumHit));
   };
 
   public addOneScore = (): void => {
@@ -74,7 +83,7 @@ export class GameplayModel extends MVCModel {
         this._coins -= price;
         this.gameEventBus.emit(GAMEACTIONS.walletUpdated, this);
         if (weapon === WEAPONS.shuffle) {
-          this._content.field.controller.reset(true);
+          this.resetField(true);
           this.resetWeapon();
         }
       }
