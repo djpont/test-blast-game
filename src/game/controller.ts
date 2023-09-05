@@ -1,24 +1,9 @@
-import { Block } from '/components/block';
-import { Field } from '/components/field';
-import { GameMechanics } from './mechanics';
+import { MVCController } from '/classes/mvc';
+import { GameView } from '/game/view';
+import { GameModel } from 'src/game/model';
 
-export class GameController {
-  private _mechanics: GameMechanics;
-  private _playerMayClick: boolean;
-
-  constructor(field: Field, mechanics: GameMechanics) {
-    this._mechanics = mechanics;
-    this._playerMayClick = true;
-    field.controller.registerBlocksEvent(this.clickOnBlock);
+export class GameController extends MVCController<GameModel, GameView> {
+  constructor(model: GameModel, view: GameView) {
+    super(model, view);
   }
-
-  private clickOnBlock = async (block: Block) => {
-    if (this._playerMayClick) {
-      console.log('playerMayClick = false');
-      this._playerMayClick = false;
-      await this._mechanics.clickOnBlock(block);
-      this._playerMayClick = true;
-      console.log('playerMayClick = true');
-    }
-  };
 }

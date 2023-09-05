@@ -1,4 +1,5 @@
 import { Game } from '/game';
 import './style.scss';
 
-new Game();
+const root = document.getElementById('root');
+if (root) new Game(root);

@@ -1,16 +1,21 @@
-import { Scene, TSceneComponent } from '/classes/scene';
-import { TSize } from '/shared/types';
-import { Utils } from '/shared/utils';
-import { Application } from 'pixi.js';
-import { Animations } from '/shared/animation';
+import { MVCComponent } from '/classes/mvc';
 import { Localization } from '/shared/localozation';
 import { Textures } from '/shared/textures';
-import { ButtonPause, ButtonBonus, Field, Panel, ProgressBar, Wallet } from '/components';
+import { GameModel } from './model';
+import { GameView } from './view';
 import { GameController } from './controller';
-import { GameMechanics } from './mechanics';
 
-export class Game {
-  private static _instance: Game;
+export class Game extends MVCComponent<GameModel, GameView, GameController> {
+  constructor(root: HTMLElement) {
+    const model = new GameModel();
+    const view = new GameView(model);
+    const controller = new GameController(model, view);
+    super(model, view, controller);
+
+    this.loading().then(() => {
+      model.createApp(root);
+    });
+  }
 
   private async loading() {
     const loadingDiv = document.createElement('div');
@@ -21,11 +26,7 @@ export class Game {
       document.body.appendChild(loadingDiv);
     };
 
-    const doLoading = async () => {
-      await Textures.loadTextures();
-    };
-
-    const hideLoading = async () => {
+    const hideLoading = () => {
       const delay = 100;
       const hideAnimationDuration = 1000;
       setTimeout(() => {
@@ -36,103 +37,8 @@ export class Game {
       }, hideAnimationDuration + delay);
     };
 
-    await showLoading();
-    await doLoading();
-    await hideLoading();
+    showLoading();
+    await Textures.loadTextures();
+    hideLoading();
   }
-
-  constructor() {
-    if (Game._instance !== undefined) return Game._instance;
-    Game._instance = this;
-
-    this.loading().then(() => {
-      this.startBlastGame();
-    });
-  }
-
-  private startBlastGame = () => {
-    const appSize: TSize = {
-      width: 2540, //window.innerWidth,
-      height: 2120, //window.innerHeight,
-    };
-
-    const app = new Application({
-      ...appSize,
-      backgroundColor: 0x1099bb,
-    });
-    document.body.appendChild(app.view as HTMLCanvasElement);
-
-    const resize = () => {
-      const scaleX = window.innerWidth / appSize.width;
-      const scaleY = window.innerHeight / appSize.height;
-      const scale = Math.min(scaleX, scaleY);
-      app.stage.scale.set(scale, scale);
-      app.renderer.resize(appSize.width * scale, appSize.height * scale);
-    };
-    resize();
-
-    window.addEventListener('resize', Utils.turtle(resize, 300));
-
-    // const p2: TPosition = { x: 200, y: 200 };
-    //
-    // const b = new Block(0, 0);
-    // b.controller.addToContainer(app.stage);
-    //
-    // setTimeout(() => {
-    //   b.controller.moveTo(p2, 1000);
-    // }, 1000);
-    //
-    // app.ticker.add(delta => {
-    //   Animations.play(delta);
-    // });
-
-    const field = new Field();
-
-    const mainSceneElements: TSceneComponent[] = [
-      {
-        element: new ProgressBar(2220),
-        layout: { position: { x: 20, y: -100 }, scale: 1 },
-      },
-      {
-        element: new ButtonPause(),
-        layout: { position: { x: 2260, y: 10 }, scale: 0.9 },
-      },
-      {
-        element: field,
-        layout: { position: { x: 0, y: 300 }, scale: 1 },
-      },
-      {
-        element: new Panel(),
-        layout: { position: { x: 1650, y: 285 }, scale: 0.8 },
-      },
-      {
-        element: new Wallet(),
-        layout: { position: { x: 1740, y: 1170 }, scale: 1 },
-      },
-      {
-        element: new ButtonBonus(10, Localization.text.bomb),
-        layout: { position: { x: 1725, y: 1370 }, scale: 0.9 },
-      },
-      {
-        element: new ButtonBonus(10, Localization.text.bomb),
-        layout: { position: { x: 2125, y: 1370 }, scale: 0.9 },
-      },
-      {
-        element: new ButtonBonus(10, Localization.text.bomb),
-        layout: { position: { x: 1725, y: 1750 }, scale: 0.9 },
-      },
-      {
-        element: new ButtonBonus(10, Localization.text.bomb),
-        layout: { position: { x: 2125, y: 1750 }, scale: 0.9 },
-      },
-    ];
-
-    new Scene(mainSceneElements, appSize, app);
-
-    const gameMechanics = new GameMechanics(field);
-    new GameController(field, gameMechanics);
-    app.ticker.add(delta => {
-      Animations.play(delta);
-    });
-  };
 }
