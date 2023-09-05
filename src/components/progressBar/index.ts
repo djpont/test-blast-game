@@ -1,7 +1,7 @@
 import { MVCComponent } from '/classes/mvc';
-import { ProgressBarController } from './controller';
 import { ProgressBarModel } from './model';
 import { ProgressBarView } from './view';
+import { ProgressBarController } from './controller';
 
 export class ProgressBar extends MVCComponent<
   ProgressBarModel,

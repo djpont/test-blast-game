@@ -1,7 +1,7 @@
 import { MVCComponent } from '/classes/mvc';
-import { PanelController } from './controller';
 import { PanelModel } from './model';
 import { PanelView } from './view';
+import { PanelController } from './controller';
 
 export class Panel extends MVCComponent<PanelModel, PanelView, PanelController> {
   constructor() {

@@ -1,7 +1,7 @@
 import { MVCComponent } from '/classes/mvc';
-import { WalletController } from './controller';
 import { WalletModel } from './model';
 import { WalletView } from './view';
+import { WalletController } from './controller';
 
 export class Wallet extends MVCComponent<WalletModel, WalletView, WalletController> {
   constructor(money: number = 0) {

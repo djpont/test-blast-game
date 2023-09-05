@@ -1,7 +1,7 @@
 import { MVCComponent } from '/classes/mvc';
-import { ButtonBonusController } from './controller';
 import { ButtonBonusModel } from './model';
 import { ButtonBonusView } from './view';
+import { ButtonBonusController } from './controller';
 
 export class ButtonBonus extends MVCComponent<
   ButtonBonusModel,
