@@ -61,7 +61,7 @@ export class FieldModel extends MVCModel {
       const callbackWithBlock = () => {
         callback(block);
       };
-      block.controller.registerPixiEvent(GAME.pointerEvent, callbackWithBlock);
+      block.controller.registerPixiEvent(GAME.pointerEvent, callbackWithBlock, 'default');
     });
   };
 
