@@ -14,9 +14,5 @@ export const gameSceneController: TSceneController = (
     callbacks.back();
   };
 
-  setTimeout(() => {
-    pause();
-  }, 100);
-
   content.buttonPause.element.controller.registerPixiEvent(GAME.pointerEvent, pause);
 };

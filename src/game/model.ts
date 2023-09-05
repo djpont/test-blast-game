@@ -51,9 +51,6 @@ export class GameModel extends MVCModel {
         this.showSecond();
       },
     };
-    setTimeout(() => {
-      callbacks.startGame();
-    }, 100);
     const scene = new Scene(ScenesSchemas.intro(callbacks));
     this.showScene(scene, true);
   };
