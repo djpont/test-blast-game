@@ -32,6 +32,7 @@ export enum MVCACTIONS {
   scaleUpdated = 'scaleUpdated',
   alphaUpdated = 'alphaUpdated',
   valueUpdated = 'valueUpdated',
+  callbackUpdated = 'callbackUpdated',
 }
 
 export enum BLOCKACTIONS {
@@ -44,6 +45,13 @@ export enum WEAPONS {
   bomb = 'bomb',
   horizontal = 'horizontal',
   vertical = 'vertical',
+}
+
+export enum GAMEACTIONS {
+  // assetsLoaded = 'assetsLoaded',
+  scoreUpdated = 'scoreUpdated',
+  turnUpdated = 'turnUpdated',
+  walletUpdated = 'walletUpdated',
 }
 
 export const GAME = {
@@ -66,7 +74,7 @@ export const GAME = {
     disappearDelay: 50,
     disappear: 300,
   },
-  minimumHit: 1,
+  minimumHit: 2,
   textStyle: new TextStyle({
     fontFamily: 'Marvin',
     align: 'center',
