@@ -1,98 +1,30 @@
 import { MVCController } from '/classes/mvc';
-// import { Block } from '/components/block';
-// import { GAME, WEAPONS } from '/shared/constants';
-// import { TPosition } from '/shared/types';
-// import { Utils } from '/shared/utils';
+import { Block } from '/components';
 import { GameplayModel } from './model';
 import { GameplayView } from './view';
+import { hitBlocks } from './hitBlocks';
 
 export class GameplayController extends MVCController<GameplayModel, GameplayView> {
-  private _playerMayClick: boolean;
+  private _playerCanClickOnBlock: boolean;
 
   constructor(model: GameplayModel, view: GameplayView) {
-    // console.log('GameplayController constructor');
     super(model, view);
-    this._playerMayClick = true;
-    // field.controller.registerBlocksEvent(this.clickOnBlock);
+    this._playerCanClickOnBlock = true;
+    model.content.field.controller.registerBlocksEvent(this.clickOnBlock);
+    model.content.wallet.controller.changeCallback(() => model.addMoney(5));
   }
 
-  /*
-    private clickOnBlock = async (block: Block) => {
-      if (this._playerMayClick) {
-        console.log('playerMayClick = false');
-        this._playerMayClick = false;
-        await this.hitBlocks(block);
-        this._playerMayClick = true;
-        console.log('playerMayClick = true');
-      }
-    };
-
-    private hitBlocks = async (block: Block) => {
-      let blocks: Block[] = [];
-
-      const checkBlocksLength = (minimum: number): void => {
-        if (blocks.length < minimum) {
-          blocks = [];
-        }
-      };
-
-      const clickPosition = block.blockProps.fieldPosition;
-
-      switch (this._model.gameProps.weapon) {
-        case WEAPONS.simple:
-          // blocks = this._field.neighbours.same(clickPosition);
-          // checkBlocksLength(GAME.minimumHit);
-          break;
-        case WEAPONS.bomb:
-          // blocks = this._field.neighbours.rect(block);
-          break;
-        case WEAPONS.horizontal:
-          // blocks = this._field.neighbours.line(block, 'horizontal');
-          break;
-        case WEAPONS.vertical:
-          // blocks = this._field.neighbours.line(block, 'vertical');
-          break;
-      }
-
-      if (blocks.length) return this.disappearBlocks(blocks, clickPosition);
-    };
-
-    private disappearBlocks = async (blocks: Block[], clickPosition: TPosition) => {
-      let blockToBeDisappear = blocks.length;
-
-      return new Promise(resolve => {
-        const fullDisappeared = (blocks: Block[]) => {
-          return async () => {
-            blockToBeDisappear--;
-            if (!blockToBeDisappear) {
-              this.recreateBlocks(blocks);
-              resolve(true);
-            }
-          };
-        };
-
-        const middleDisappeared = () => {
-          // this._field.controller.fallBlocks(true);
-        };
-
-        blocks.forEach(async block => {
-          const distance = Utils.distance(block.blockProps.fieldPosition, clickPosition, true);
-          const delay = distance * GAME.animationSpeed.disappearDelay;
-          setTimeout(() => {
-            block.controller.disappear(
-              GAME.animationSpeed.disappear,
-              fullDisappeared(blocks),
-              middleDisappeared,
-            );
-          }, delay);
-        });
-      });
-    };
-
-    private recreateBlocks = (blocks: Block[]) => {
-      // this._field.controller.recreateBlocks(blocks);
-      // this._field.controller.fallBlocks(false);
-    };
-
-   */
+  private clickOnBlock = async (block: Block) => {
+    if (this._playerCanClickOnBlock) {
+      this._playerCanClickOnBlock = false;
+      await hitBlocks(
+        this._model.gameProps.weapon,
+        block,
+        this._model.content.field,
+        this._model.addOneScore,
+        this._model.turnComplete,
+      );
+      this._playerCanClickOnBlock = true;
+    }
+  };
 }
