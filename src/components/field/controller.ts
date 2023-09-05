@@ -22,4 +22,8 @@ export class FieldController extends MVCController<FieldModel, FieldView> {
   get fallBlocks() {
     return this._model.fallBlocks;
   }
+
+  get checkAvailableTurns() {
+    return this._model.checkAvailableTurns;
+  }
 }

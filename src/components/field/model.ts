@@ -9,24 +9,49 @@ export class FieldModel extends MVCModel {
   private readonly _width: number;
   private readonly _height: number;
   private _newBlocksPositionY: number;
+  private _turnsAvailable: boolean;
 
   constructor(width: number, height: number) {
     super();
     this._width = width;
     this._height = height;
     this._newBlocksPositionY = 0;
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const position = this.convertPositionFromFieldToReal({ x, y });
-        const fieldPosition = { x, y };
-        const block = new Block(position, fieldPosition);
-        this._blocks.push(block);
-      }
-    }
+    this._turnsAvailable = true;
+    this.initializeBlocks(width * height);
+    this.reset();
   }
+
+  private initializeBlocks = (count: number): void => {
+    for (let i = 0; i < count; i++) {
+      this._blocks.push(new Block());
+    }
+  };
 
   public updateNewBlockPositionY = (blocksContainerY: number) => {
     this._newBlocksPositionY = -blocksContainerY - GAME.block.size / 2;
+  };
+
+  public reset = (shuffle: boolean = false): void => {
+    const { width, height } = this.size;
+    const newPositions: TPosition[] = [];
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        newPositions.push({ x, y });
+      }
+    }
+
+    if (shuffle) newPositions.sort(() => Math.random() - 0.5);
+
+    this.blocks.forEach((block, index) => {
+      const newPosition = newPositions[index];
+      block.controller.changeFieldPosition(newPosition);
+      block.controller.moveTo(
+        this.convertPositionFromFieldToReal(newPosition),
+        shuffle ? GAME.animationSpeed.fall : 0,
+      );
+      if (!shuffle) block.controller.recreate();
+    });
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   };
 
   public get fieldProps() {
@@ -34,6 +59,7 @@ export class FieldModel extends MVCModel {
       map: this.map,
       size: this.size,
       blocks: this.blocks,
+      turnsAvailable: this._turnsAvailable,
     } as const;
   }
 
@@ -57,56 +83,36 @@ export class FieldModel extends MVCModel {
   }
 
   public registerBlocksEvent = (callback: (block: Block) => void): void => {
-    this.blocks.forEach(block => {
-      const callbackWithBlock = () => {
-        callback(block);
-      };
-      block.controller.registerPixiEvent(GAME.pointerEvent, callbackWithBlock, 'default');
-    });
-  };
-
-  public reset = (): void => {
-    const { width, height } = this.size;
-    const newPositions: TPosition[] = [];
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        newPositions.push({ x, y });
-      }
+    for (const block of this.blocks) {
+      block.controller.registerPixiEvent(GAME.pointerEvent, () => callback(block), 'default');
     }
-    this.blocks.forEach((block, index) => {
-      block.controller.changeFieldPosition(newPositions[index]);
-      block.controller.moveTo(this.convertPositionFromFieldToReal(newPositions[index]));
-      block.controller.recreate();
-    });
-    this.mvcEventBus.emit(MVCACTIONS.valueUpdated);
   };
 
   public get map(): Block[][] {
     const verticals = this.verticals();
-    const map: Block[][] = new Array(this._width).fill([]);
-    for (let x = 0; x < this._width; x++) {
-      map[x] = new Array(this._height).fill(null);
-    }
+    const map: Block[][] = new Array(this._width)
+      .fill([])
+      .map(() => new Array(this._height).fill(null));
+
     verticals.forEach(vertical =>
       vertical.forEach(block => {
         const { x, y } = block.blockProps.fieldPosition;
-        if (x >= 0 && x < this._width && y >= 0 && x < this._width) {
+        if (x >= 0 && x < this._width && y >= 0 && y < this._height) {
           map[x][y] = block;
         }
       }),
     );
+
     return map;
   }
 
   public verticals = (onlyNotDisappeared: boolean = true): Block[][] => {
-    const verticals: Block[][] = new Array(this._width).fill([]);
-    for (let x = 0; x < this._width; x++) {
-      verticals[x] = [];
-    }
-    this.blocks.forEach(block => {
-      if (!onlyNotDisappeared || !block.blockProps.disappeared)
-        verticals[block.blockProps.fieldPosition.x].push(block);
-    });
+    const verticals: Block[][] = new Array(this._width).fill([]).map(() => []);
+
+    this.blocks
+      .filter(({ blockProps }) => !onlyNotDisappeared || !blockProps.disappeared)
+      .forEach(block => verticals[block.blockProps.fieldPosition.x].push(block));
+
     verticals.forEach(vertical =>
       vertical.sort((a, b) => b.blockProps.fieldPosition.y - a.blockProps.fieldPosition.y),
     );
@@ -179,33 +185,39 @@ export class FieldModel extends MVCModel {
     return x >= 0 && x < this._width && y >= 0 && y < this._height;
   };
 
-  public recreateBlocks = (blocks: Block[]) => {
-    blocks.forEach(async block => {
-      const newFieldPosition = this.getRecreatedFieldPosition(block);
-      const newRealPosition = this.getRecreatedRealPosition(block);
-      block.controller.changeFieldPosition(newFieldPosition);
-      await block.controller.moveTo(newRealPosition);
-      block.controller.recreate();
+  public recreateBlocks = async (blocks: Block[]) => {
+    return new Promise(resolve => {
+      blocks.forEach(async block => {
+        const newFieldPosition = this.getRecreatedFieldPosition(block);
+        const newRealPosition = this.getRecreatedRealPosition(block);
+        block.controller.changeFieldPosition(newFieldPosition);
+        await block.controller.moveTo(newRealPosition);
+        block.controller.recreate();
+      });
+      this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
+      resolve(true);
     });
-    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   };
 
-  public fallBlocks = (onlyNotDisappeared: boolean = true) => {
-    this.verticals(onlyNotDisappeared).forEach((vertical, x) => {
-      for (let i = 0; i < vertical.length; i++) {
-        const y = this._height - 1 - i;
-        const block = vertical[i];
-        if (block.blockProps.fieldPosition.y < y) {
-          const currentRealPosition = block.props.position;
-          const newFieldPosition = { x, y };
-          const newRealPosition = this.convertPositionFromFieldToReal(newFieldPosition);
-          const duration =
-            (Utils.distance(currentRealPosition, newRealPosition) / GAME.block.size) *
-            GAME.animationSpeed.fall;
-          block.controller.changeFieldPosition(newFieldPosition);
-          block.controller.moveTo(newRealPosition, duration);
+  public fallBlocks = async (onlyNotDisappeared: boolean = true) => {
+    return new Promise(resolve => {
+      this.verticals(onlyNotDisappeared).forEach((vertical, x) => {
+        for (let i = 0; i < vertical.length; i++) {
+          const y = this._height - 1 - i;
+          const block = vertical[i];
+          if (block.blockProps.fieldPosition.y < y) {
+            const currentRealPosition = block.props.position;
+            const newFieldPosition = { x, y };
+            const newRealPosition = this.convertPositionFromFieldToReal(newFieldPosition);
+            const duration =
+              (Utils.distance(currentRealPosition, newRealPosition) / GAME.block.size) *
+              GAME.animationSpeed.fall;
+            block.controller.changeFieldPosition(newFieldPosition);
+            block.controller.moveTo(newRealPosition, duration);
+          }
         }
-      }
+      });
+      resolve(true);
     });
   };
 
@@ -236,5 +248,15 @@ export class FieldModel extends MVCModel {
     const y = calculatePosition(position.y);
 
     return { x, y };
+  };
+
+  public checkAvailableTurns = (minimumHit: number): boolean => {
+    this._turnsAvailable = this.verticals().some(vertical => {
+      return vertical.some(block => {
+        return this.neighbours.same(block.blockProps.fieldPosition).length >= minimumHit;
+      });
+    });
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
+    return this._turnsAvailable;
   };
 }
