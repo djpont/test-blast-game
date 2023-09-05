@@ -1,33 +1,26 @@
-import { MVCComponent } from '/classes/mvc';
-import { TPosition, TSize } from '/shared/types';
+import { TSceneSchema, TSize } from '/shared/types';
 import { Application, Container } from 'pixi.js';
 
-export type TSceneComponent = {
-  element: MVCComponent;
-  layout?: {
-    position?: TPosition;
-    scale?: number;
-  };
-};
-
 export class Scene {
-  private _scene: Container;
+  private readonly _container: Container;
+  private readonly _content: object;
 
-  constructor(components: TSceneComponent[], size: TSize, app: Application) {
-    const scene = new Container();
-    this._scene = scene;
-    app.stage.addChild(scene);
+  constructor(scene: TSceneSchema, size: TSize, app: Application) {
+    this._content = scene.content;
+    const container = new Container();
+    this._container = container;
+    app.stage.addChild(container);
 
-    const { width, height } = size;
-    scene.width = width;
-    scene.height = height;
-
-    components.forEach(({ element, layout }) => {
-      element.controller.addToContainer(scene);
+    Object.values(scene.content).forEach(({ element, layout }) => {
+      element.controller.addToContainer(container);
       if (layout) {
         layout.position && element.controller.changeProps.position(layout.position);
         layout.scale && element.controller.changeProps.scale(layout.scale);
       }
     });
+  }
+
+  public get content() {
+    return this._content;
   }
 }
