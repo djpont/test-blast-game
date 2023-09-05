@@ -6,6 +6,7 @@ import { Utils } from '/shared/utils';
 export const hitBlocks = async (
   weapon: WEAPONS,
   block: Block,
+  minimumHit: number,
   field: Field,
   addOneScore: TCallback,
   completeTurn: TCallback,
@@ -45,13 +46,14 @@ export const hitBlocks = async (
     });
   };
 
-  const recreateBlocks = (blocks: Block[]) => {
-    field.controller.recreateBlocks(blocks);
-    field.controller.fallBlocks(false);
+  const recreateBlocks = async (blocks: Block[]) => {
+    await field.controller.recreateBlocks(blocks);
+    await field.controller.fallBlocks(false);
+    field.controller.checkAvailableTurns(minimumHit);
   };
 
-  const checkBlocksLength = (minimum: number): void => {
-    if (blocks.length < minimum) {
+  const checkMinimumHit = (): void => {
+    if (blocks.length < minimumHit) {
       blocks = [];
     }
   };
@@ -61,7 +63,7 @@ export const hitBlocks = async (
   switch (weapon) {
     case WEAPONS.simple:
       blocks = field.neighbours.same(clickPosition);
-      checkBlocksLength(GAME.minimumHit);
+      checkMinimumHit();
       break;
     case WEAPONS.bomb:
       blocks = field.neighbours.rect(block);

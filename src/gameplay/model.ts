@@ -1,6 +1,6 @@
 import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
-import { GAMEACTIONS, WEAPONS } from '/shared/constants';
+import { GAME, GAMEACTIONS, WEAPONS } from '/shared/constants';
 import { TGameplayContent } from './type';
 
 export class GameplayModel extends MVCModel {
@@ -12,9 +12,12 @@ export class GameplayModel extends MVCModel {
   private _steps: number;
   private _coins: number;
   private _scorePerBlock: number;
+  private _minimumHit: number;
 
   constructor(content: TGameplayContent) {
     super();
+    this._minimumHit = GAME.minimumHit;
+    content.field.controller.checkAvailableTurns(this._minimumHit);
     this._content = content;
     this.reset();
   }
@@ -27,6 +30,7 @@ export class GameplayModel extends MVCModel {
       steps: this._steps,
       coins: this._coins,
       scorePerBlock: this._scorePerBlock,
+      minimumHit: this._minimumHit,
     } as const;
   }
 
@@ -50,6 +54,7 @@ export class GameplayModel extends MVCModel {
 
   public turnComplete = (): void => {
     this._steps++;
+    this.resetWeapon();
     this.gameEventBus.emit(GAMEACTIONS.turnUpdated, this);
   };
 
@@ -61,4 +66,25 @@ export class GameplayModel extends MVCModel {
     this._coins += money;
     this.gameEventBus.emit(GAMEACTIONS.walletUpdated, this);
   };
+
+  public get buyBonus() {
+    const setBonus = (weapon: WEAPONS, price: number) => {
+      if (this._weapon === WEAPONS.simple && price <= this._coins) {
+        this._weapon = weapon;
+        this._coins -= price;
+        this.gameEventBus.emit(GAMEACTIONS.walletUpdated, this);
+        if (weapon === WEAPONS.shuffle) {
+          this._content.field.controller.reset(true);
+          this.resetWeapon();
+        }
+      }
+    };
+
+    return {
+      bomb: () => setBonus(WEAPONS.bomb, GAME.bonusPrice.bomb),
+      horizontal: () => setBonus(WEAPONS.horizontal, GAME.bonusPrice.horizontal),
+      vertical: () => setBonus(WEAPONS.vertical, GAME.bonusPrice.vertical),
+      shuffle: () => setBonus(WEAPONS.shuffle, GAME.bonusPrice.shuffle),
+    };
+  }
 }
