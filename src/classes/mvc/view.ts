@@ -36,7 +36,7 @@ export abstract class MVCView<TModel extends MVCModel> {
     callback: () => void,
     cursor: typeof this._container.cursor = 'pointer',
   ): void => {
-    this._container.cursor = cursor ? cursor : 'default';
+    this._container.cursor = cursor ? cursor : 'pointer';
     this._container.eventMode = 'static';
     this._container.removeAllListeners();
     this._container.on(event, callback);
