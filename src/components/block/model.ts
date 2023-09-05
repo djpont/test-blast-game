@@ -16,7 +16,7 @@ export class BlockModel extends MVCModel {
   constructor(position: TPosition, fieldPosition: TPosition) {
     super(position);
     this._blockEventBus = new EventBus();
-    this.changeFieldPosition(fieldPosition);
+    if (fieldPosition) this.changeFieldPosition(fieldPosition);
     this.recreate();
   }
 
@@ -41,7 +41,7 @@ export class BlockModel extends MVCModel {
     this._blockEventBus.emit(BLOCKACTIONS.spriteUpdated, this);
   };
 
-  public changeFieldPosition = (position: TPosition): void => {
+  public changeFieldPosition = (position: TPosition) => {
     this._fieldX = position.x;
     this._fieldY = position.y;
     this._blockEventBus.emit(BLOCKACTIONS.fieldPositionUpdated, this);
