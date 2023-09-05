@@ -5,4 +5,5 @@ export { ButtonBonus } from './buttonBonus';
 export { Field } from './field';
 export { Panel } from './panel';
 export { ProgressBar } from './progressBar';
+export { Text } from './text';
 export { Wallet } from './wallet';
