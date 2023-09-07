@@ -23,5 +23,6 @@ export class GameView extends MVCView<GameModel> {
       stage.removeChildren(stageRootChildrenCount);
     }
     if (scene) scene.controller.scene.addAndSceneAndScale(stage);
+    this.resize(model);
   };
 }
