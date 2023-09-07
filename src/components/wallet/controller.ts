@@ -14,6 +14,6 @@ export class WalletController extends MVCController<WalletModel, WalletView> {
   }
 
   public get changeCallback() {
-    return this._model.changeCallback;
+    return this._model.changePlusCallback;
   }
 }

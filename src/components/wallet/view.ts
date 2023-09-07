@@ -47,6 +47,6 @@ export class WalletView extends MVCView<WalletModel> {
   private callbackUpdated = (model: WalletModel) => {
     this._plus.cursor = 'pointer';
     this._plus.eventMode = 'static';
-    this._plus.on(GAME.pointerEvent, model.callback);
+    this._plus.on(GAME.pointerEvent, model.plusCallback);
   };
 }

@@ -4,7 +4,7 @@ import { type TCallback } from '/shared/types';
 
 export class WalletModel extends MVCModel {
   private _value: number;
-  private _callback: TCallback;
+  private _plusCallback: TCallback;
 
   constructor() {
     super();
@@ -20,12 +20,12 @@ export class WalletModel extends MVCModel {
     this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 
-  public get callback() {
-    return this._callback;
+  public get plusCallback() {
+    return this._plusCallback;
   }
 
-  public changeCallback = (callback: TCallback): void => {
-    this._callback = callback;
+  public changePlusCallback = (callback: TCallback): void => {
+    this._plusCallback = callback;
     this.mvcEventBus.emit(MVCACTIONS.callbackUpdated, this);
   };
 }
