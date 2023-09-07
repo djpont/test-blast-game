@@ -1,4 +1,4 @@
-import { TPosition, TSize } from '/shared/types';
+import type { TPosition, TSize } from '/shared/types';
 import { Container, Graphics, NineSlicePlane, Sprite, Text } from 'pixi.js';
 
 type TLayout = {
@@ -60,7 +60,7 @@ const addMask = (
 ): void => {
   if (addCorners && size) {
     const containerCorners = new Graphics();
-    const ccsize = 10;
+    const ccsize = 0; // Увеличить для видимости углов контейнера
     containerCorners.beginFill('#fff');
     containerCorners.drawRect(0, 0, ccsize, ccsize);
     containerCorners.drawRect(0, size.height - ccsize, ccsize, ccsize);
