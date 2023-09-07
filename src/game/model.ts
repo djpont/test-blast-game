@@ -35,7 +35,7 @@ export class GameModel extends MVCModel {
   }
 
   public createApp = (root: HTMLElement) => {
-    const pixelRatio = window.devicePixelRatio ?? 1;
+    const pixelRatio = 0.5; //window.devicePixelRatio ?? 1;
     const appSize: TSize = {
       width: LAYOUT.app.width * pixelRatio,
       height: LAYOUT.app.height * pixelRatio,
