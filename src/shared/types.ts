@@ -38,3 +38,10 @@ export type TSceneSchema = {
   controller?: TSceneController;
   content: TSceneContent;
 };
+
+export type TGameResult = {
+  winner: boolean;
+  score: number;
+  goal?: number;
+  steps: number;
+};
