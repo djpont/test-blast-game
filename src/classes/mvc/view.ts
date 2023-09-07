@@ -1,5 +1,5 @@
+import { MVCACTIONS } from '/shared/enums';
 import { Container, DisplayObjectEvents } from 'pixi.js';
-import { MVCACTIONS } from '/shared/constants';
 import { MVCModel } from './index';
 
 export abstract class MVCView<TModel extends MVCModel> {

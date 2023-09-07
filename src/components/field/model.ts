@@ -1,6 +1,7 @@
 import { MVCModel } from '/classes/mvc';
 import { Block } from '/components/block';
-import { GAME, MVCACTIONS } from '/shared/constants';
+import { GAME } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 import { type TPosition } from '/shared/types';
 import { Utils } from '/shared/utils';
 

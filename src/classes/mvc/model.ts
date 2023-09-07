@@ -1,6 +1,6 @@
 import { EventBus } from '/classes/eventBus';
 import { Animations } from '/shared/animation';
-import { MVCACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 import type { TCallback, TPosition } from '/shared/types';
 
 export abstract class MVCModel {

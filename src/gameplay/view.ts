@@ -1,5 +1,5 @@
 import { MVCView } from '/classes/mvc';
-import { GAMEACTIONS } from '/shared/constants';
+import { GAMEACTIONS } from '/shared/enums';
 import { GameplayModel } from './model';
 
 export class GameplayView extends MVCView<GameplayModel> {

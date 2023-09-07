@@ -1,6 +1,7 @@
 import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
-import { GAME, GAMEACTIONS, WEAPONS } from '/shared/constants';
+import { GAME } from '/shared/constants';
+import { GAMEACTIONS, WEAPONS } from '/shared/enums';
 import type { TCallback, TGameResult } from '/shared/types';
 import type { TGameplayContent } from 'src/gameplay/types';
 

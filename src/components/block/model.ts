@@ -1,7 +1,8 @@
 import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
 import { Animations } from '/shared/animation';
-import { BLOCKACTIONS, GAME } from '/shared/constants';
+import { GAME } from '/shared/constants';
+import { BLOCKACTIONS } from '/shared/enums';
 import type { TCallback, TPosition } from '/shared/types';
 
 type TColor = (typeof GAME.block.colors)[number];

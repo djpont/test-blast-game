@@ -3,7 +3,7 @@ import { MVCModel } from '/classes/mvc';
 import { Scene } from '/components/scene';
 import { ScenesSchemas } from '/scenes';
 import { Animations } from '/shared/animation';
-import { APPACTIONS } from '/shared/constants';
+import { APPACTIONS } from '/shared/enums';
 import { LAYOUT } from '/shared/layout';
 import { Placer } from '/shared/placer';
 import type { TGameResult, TSize } from '/shared/types';

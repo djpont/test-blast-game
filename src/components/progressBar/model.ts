@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { MVCACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 
 export class ProgressBarModel extends MVCModel {
   private _value: number;

@@ -1,5 +1,6 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, MVCACTIONS } from '/shared/constants';
+import { GAME } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localization';
 import { Textures } from '/shared/textures';

@@ -1,5 +1,6 @@
 import { MVCView } from '/classes/mvc';
-import { GAME, MVCACTIONS } from '/shared/constants';
+import { GAME } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { NineSlicePlane, Text } from 'pixi.js';

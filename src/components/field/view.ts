@@ -1,10 +1,10 @@
 import { MVCView } from '/classes/mvc';
 import { Text } from '/components';
+import { MVCACTIONS } from '/shared/enums';
 import { LAYOUT } from '/shared/layout';
 import { Placer } from '/shared/placer';
 import { Textures } from '/shared/textures';
 import { Container, Sprite } from 'pixi.js';
-import { MVCACTIONS } from '/shared/constants';
 import { FieldModel } from './model';
 
 export class FieldView extends MVCView<FieldModel> {

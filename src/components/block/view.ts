@@ -1,6 +1,7 @@
 import { MVCView } from '/classes/mvc';
+import { BLOCKACTIONS } from '/shared/enums';
 import { Sprite } from 'pixi.js';
-import { BLOCKACTIONS, GAME } from '/shared/constants';
+import { GAME } from '/shared/constants';
 import { Textures } from '/shared/textures';
 import { BlockModel } from './index';
 

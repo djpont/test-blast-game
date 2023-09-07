@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { MVCACTIONS } from '/shared/constants';
+import { MVCACTIONS } from '/shared/enums';
 import { type TCallback } from '/shared/types';
 
 export class WalletModel extends MVCModel {
