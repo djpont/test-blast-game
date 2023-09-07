@@ -7,13 +7,13 @@ import { GameController } from './controller';
 
 export class Game extends MVCComponent<GameModel, GameView, GameController> {
   constructor(root: HTMLElement) {
-    const model = new GameModel();
+    const model = new GameModel(root);
     const view = new GameView(model);
     const controller = new GameController(model, view);
     super(model, view, controller);
 
     this.loading().then(() => {
-      model.createApp(root);
+      model.startApp();
     });
   }
 

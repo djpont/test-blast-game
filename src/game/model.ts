@@ -1,18 +1,37 @@
-import { Animations } from '/shared/animation';
-import { Placer } from '/shared/placer';
-import type { TGameResult, TSize } from '/shared/types';
-import { Application, Container } from 'pixi.js';
+import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
 import { Scene } from '/components/scene';
 import { ScenesSchemas } from '/scenes';
+import { Animations } from '/shared/animation';
+import { APPACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
+import { Placer } from '/shared/placer';
+import type { TGameResult, TSize } from '/shared/types';
+import { Application, Container } from 'pixi.js';
 
 export class GameModel extends MVCModel {
+  public readonly appEventBus: EventBus<APPACTIONS>;
+  private _app: Application;
+  private _appSize: TSize;
+  private _root: HTMLElement;
   private _stage: Container;
   private _stageRootChildrenCount: number = 1;
+  private _scene: Scene;
 
-  constructor() {
+  constructor(root: HTMLElement) {
     super();
+    this.appEventBus = new EventBus<APPACTIONS>();
+    this.createApp(root);
+  }
+
+  public get appProps() {
+    return {
+      size: this._appSize,
+      root: this._root,
+      stage: this._stage,
+      scene: this._scene,
+      stageRootChildrenCount: this._stageRootChildrenCount,
+    };
   }
 
   public createApp = (root: HTMLElement) => {
@@ -24,21 +43,18 @@ export class GameModel extends MVCModel {
     const app = new Application({ ...appSize, backgroundColor: LAYOUT.app.backgroundColor });
     root.appendChild(app.view as HTMLCanvasElement);
     Placer.addMask(app.stage, appSize, true);
+
     this._stage = app.stage;
+    this._appSize = appSize;
+    this._root = root;
+    this._app = app;
 
-    const resizeApp = () => {
-      const scaleX = window.innerWidth / appSize.width;
-      const scaleY = window.innerHeight / appSize.height;
-      const scale = Math.min(scaleX, scaleY);
-      root.style.transform = `scale(${scale})`;
-    };
+    window.addEventListener('resize', () => this.appEventBus.emit(APPACTIONS.appResized, this));
+  };
 
-    resizeApp();
-    window.addEventListener('resize', resizeApp);
-
+  public startApp = () => {
     this.show.intro();
-
-    app.ticker.add(delta => Animations.play(delta));
+    this._app.ticker.add(delta => Animations.play(delta));
   };
 
   private get show() {
@@ -48,7 +64,7 @@ export class GameModel extends MVCModel {
           startGame: this.show.game,
         };
         const scene = new Scene(ScenesSchemas.intro(callbacks));
-        this.showScene(scene, true);
+        this.showScene(scene);
       },
       game: () => {
         const callbacks = {
@@ -56,7 +72,7 @@ export class GameModel extends MVCModel {
           results: this.show.results,
         };
         const scene = new Scene(ScenesSchemas.game(callbacks));
-        this.showScene(scene, true);
+        this.showScene(scene);
       },
 
       results: (gameResult: TGameResult) => {
@@ -65,15 +81,13 @@ export class GameModel extends MVCModel {
           repeat: this.show.game,
         };
         const scene = new Scene(ScenesSchemas.results(callbacks, gameResult));
-        this.showScene(scene, true);
+        this.showScene(scene);
       },
     };
   }
 
-  private showScene = (scene: Scene, removeOthers: boolean = false) => {
-    if (removeOthers && this._stage.children.length > this._stageRootChildrenCount) {
-      this._stage.removeChildren(this._stageRootChildrenCount);
-    }
-    scene.controller.scene.addAndSceneAndScale(this._stage);
+  private showScene = (scene: Scene): void => {
+    this._scene = scene;
+    this.appEventBus.emit(APPACTIONS.sceneChanged, this);
   };
 }
