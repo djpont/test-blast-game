@@ -9,7 +9,7 @@ export class PanelModel extends MVCModel {
   constructor() {
     super();
     this._score = 0;
-    this._goal = 1000;
+    this._goal = 0;
     this._moves = 0;
   }
 
