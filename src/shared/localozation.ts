@@ -4,12 +4,17 @@ const localizationNames = [
   'title',
   'loading',
   'score',
+  'steps',
   'bonusBomb',
   'bonusVertical',
   'bonusHorizontal',
   'bonusShuffle',
   'progress',
   'startGame',
+  'repeat',
+  'close',
+  'win',
+  'loose',
 ] as const;
 
 type TLocalization = {
@@ -17,27 +22,37 @@ type TLocalization = {
 };
 
 const english: TLocalization = {
-  title: 'Blast Game Prototype',
+  title: 'Blast Game',
   loading: 'Loading',
   score: 'Score',
+  steps: 'Moves left',
   bonusBomb: 'Bomb',
   bonusVertical: 'Vertical',
   bonusHorizontal: 'Horizontal',
   bonusShuffle: 'Shuffle',
   progress: 'Progress',
   startGame: 'Start game',
+  repeat: 'Play again',
+  close: 'Close',
+  win: 'Level completed!',
+  loose: 'Try again :(',
 };
 
 const russian: TLocalization = {
-  title: 'Blast Game Прототип',
+  title: 'Blast Game',
   loading: 'Загрузка',
   score: 'Очки',
+  steps: 'Шагов осталось',
   bonusBomb: 'Бомба',
   bonusVertical: 'Вертик.',
   bonusHorizontal: 'Гориз.',
   bonusShuffle: 'Перемешка',
   progress: 'Прогресс',
   startGame: 'Начать игру',
+  repeat: 'Играть заново',
+  close: 'Закрыть',
+  win: 'Уровень пройден',
+  loose: 'Попробуйте снова :(',
 };
 
 const selectLocalization = (): TLocalization => {
