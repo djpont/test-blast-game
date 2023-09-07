@@ -19,6 +19,11 @@ const textureNames = [
   'progressContainer',
 ] as const;
 
+export enum APPACTIONS {
+  appResized = 'appResized',
+  sceneChanged = 'resize',
+}
+
 export enum MVCACTIONS {
   propsUpdated = 'propsUpdated',
   positionUpdated = 'positionUpdated',
