@@ -8,8 +8,6 @@ export const resultsSceneControllerWithResult = (gameResult: TGameResult): TScen
     content.closeButton.element.controller.registerPixiEvent(GAME.pointerEvent, callbacks.close);
     content.repeatButton.element.controller.registerPixiEvent(GAME.pointerEvent, callbacks.repeat);
 
-    console.log(gameResult);
-
     const resultText = Localization.text[gameResult.winner ? 'win' : 'loose'];
     content.result.element.controller.changeText(resultText);
 
