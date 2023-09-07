@@ -1,6 +1,6 @@
 import { Animations } from '/shared/animation';
 import { Placer } from '/shared/placer';
-import { TSize } from '/shared/types';
+import type { TGameResult, TSize } from '/shared/types';
 import { Application, Container } from 'pixi.js';
 import { MVCModel } from '/classes/mvc';
 import { Scene } from '/components/scene';
@@ -36,44 +36,40 @@ export class GameModel extends MVCModel {
 
     resizeApp();
     window.addEventListener('resize', resizeApp);
-    this.showIntro();
-    // this.showGame();
+
+    this.show.intro();
 
     app.ticker.add(delta => Animations.play(delta));
   };
 
-  private showIntro = () => {
-    const callbacks = {
-      startGame: () => {
-        this.showGame();
+  private get show() {
+    return {
+      intro: () => {
+        const callbacks = {
+          startGame: this.show.game,
+        };
+        const scene = new Scene(ScenesSchemas.intro(callbacks));
+        this.showScene(scene, true);
       },
-      secondMenu: () => {
-        this.showSecond();
+      game: () => {
+        const callbacks = {
+          back: this.show.intro,
+          results: this.show.results,
+        };
+        const scene = new Scene(ScenesSchemas.game(callbacks));
+        this.showScene(scene, true);
       },
-    };
-    const scene = new Scene(ScenesSchemas.intro(callbacks));
-    this.showScene(scene, true);
-  };
 
-  private showSecond = () => {
-    const callbacks = {
-      back: () => {
-        this.showIntro();
+      results: (gameResult: TGameResult) => {
+        const callbacks = {
+          close: this.show.intro,
+          repeat: this.show.game,
+        };
+        const scene = new Scene(ScenesSchemas.results(callbacks, gameResult));
+        this.showScene(scene, true);
       },
     };
-    const scene = new Scene(ScenesSchemas.second(callbacks));
-    this.showScene(scene, true);
-  };
-
-  private showGame = () => {
-    const callbacks = {
-      back: () => {
-        this.showIntro();
-      },
-    };
-    const scene = new Scene(ScenesSchemas.game(callbacks));
-    this.showScene(scene, true);
-  };
+  }
 
   private showScene = (scene: Scene, removeOthers: boolean = false) => {
     if (removeOthers && this._stage.children.length > this._stageRootChildrenCount) {

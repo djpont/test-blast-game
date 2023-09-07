@@ -5,6 +5,7 @@ import { GameplayModel } from './model';
 export class GameplayView extends MVCView<GameplayModel> {
   constructor(model: GameplayModel) {
     super(model);
+    model.content.panel.controller.changeGoal(model.gameProps.goal);
     model.gameEventBus.on(GAMEACTIONS.scoreUpdated, this.scoreUpdated);
     model.gameEventBus.on(GAMEACTIONS.turnUpdated, this.turnUpdated);
     model.gameEventBus.on(GAMEACTIONS.walletUpdated, this.walletUpdated);

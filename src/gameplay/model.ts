@@ -1,7 +1,8 @@
 import { EventBus } from '/classes/eventBus';
 import { MVCModel } from '/classes/mvc';
 import { GAME, GAMEACTIONS, WEAPONS } from '/shared/constants';
-import { TGameplayContent } from './type';
+import type { TCallback, TGameResult } from '/shared/types';
+import type { TGameplayContent } from 'src/gameplay/types';
 
 export class GameplayModel extends MVCModel {
   public gameEventBus = new EventBus<GAMEACTIONS>();
@@ -13,9 +14,11 @@ export class GameplayModel extends MVCModel {
   private _coins: number;
   private _scorePerBlock: number;
   private _minimumHit: number;
+  private _resultsCallback: TCallback<TGameResult>;
 
-  constructor(content: TGameplayContent) {
+  constructor(content: TGameplayContent, resultsCallback: TCallback<TGameResult>) {
     super();
+    this._resultsCallback = resultsCallback;
     this._minimumHit = GAME.minimumHit;
     content.field.controller.checkAvailableTurns(this._minimumHit);
     this._content = content;
@@ -40,10 +43,10 @@ export class GameplayModel extends MVCModel {
 
   public reset = (): void => {
     this._score = 0;
-    this._goal = 1000;
-    this._steps = 0;
-    this._coins = 50;
-    this._scorePerBlock = 5;
+    this._goal = GAME.rules.goal;
+    this._steps = GAME.rules.steps;
+    this._coins = GAME.rules.coins;
+    this._scorePerBlock = GAME.rules.scoresPerBlock;
     this.resetWeapon();
     this.resetField(false);
   };
@@ -59,12 +62,40 @@ export class GameplayModel extends MVCModel {
   public addOneScore = (): void => {
     this._score += this._scorePerBlock;
     this.gameEventBus.emit(GAMEACTIONS.scoreUpdated, this);
+    this.check.isWinner();
   };
 
   public turnComplete = (): void => {
-    this._steps++;
+    this._steps--;
     this.resetWeapon();
     this.gameEventBus.emit(GAMEACTIONS.turnUpdated, this);
+  };
+
+  public get check() {
+    return {
+      isWinner: () => {
+        if (this._goal && this._score >= this._goal) {
+          this.finishGame(true);
+        }
+      },
+      isLooser: () => {
+        const isAvailableTurns = this._content.field.controller.checkAvailableTurns(
+          this._minimumHit,
+        );
+        const isCanBuyBonus = Object.values(GAME.bonusPrice).some(price => price <= this._coins);
+        if ((!isAvailableTurns && !isCanBuyBonus) || this._steps === 0) {
+          this.finishGame(false);
+        }
+      },
+    };
+  }
+
+  private finishGame = (winner: boolean): void => {
+    const gameResult = {
+      winner: winner,
+      ...this.gameProps,
+    };
+    this._resultsCallback(gameResult);
   };
 
   public resetWeapon = (): void => {

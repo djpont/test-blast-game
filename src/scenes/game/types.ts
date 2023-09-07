@@ -1,5 +1,5 @@
 import { ButtonBonus, ButtonPause, Field, Panel, ProgressBar, Wallet } from '/components';
-import { TSceneSchema, TSceneComponent, TCallback } from '/shared/types';
+import type { TSceneSchema, TSceneComponent, TCallback, TGameResult } from '/shared/types';
 
 export type TGameSceneContent = {
   progressBar: TSceneComponent<ProgressBar>;
@@ -19,4 +19,5 @@ export type TGameSceneSchema = {
 
 export type TGameSceneCallbacks = {
   back: TCallback;
+  results: TCallback<TGameResult>;
 };

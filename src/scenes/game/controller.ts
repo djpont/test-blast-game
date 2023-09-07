@@ -1,7 +1,7 @@
 import { Gameplay, type TGameplayContent } from '/gameplay';
 import { GAME } from '/shared/constants';
-import { TSceneController } from '/shared/types';
-import { TGameSceneCallbacks, TGameSceneContent } from './types';
+import type { TSceneController } from '/shared/types';
+import type { TGameSceneCallbacks, TGameSceneContent } from './types';
 
 export const gameSceneController: TSceneController = (
   content: TGameSceneContent,
@@ -18,7 +18,7 @@ export const gameSceneController: TSceneController = (
     buttonBonusShuffle: content.buttonBonusShuffle.element,
   };
 
-  new Gameplay(gameplayContent);
+  new Gameplay(gameplayContent, callbacks.results);
 
   const pause = () => {
     callbacks.back();

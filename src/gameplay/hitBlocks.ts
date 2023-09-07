@@ -1,6 +1,6 @@
 import { Block, Field } from '/components';
 import { GAME, WEAPONS } from '/shared/constants';
-import { TCallback, TPosition } from '/shared/types';
+import type { TCallback, TPosition } from '/shared/types';
 import { Utils } from '/shared/utils';
 
 export const hitBlocks = async (
@@ -10,6 +10,7 @@ export const hitBlocks = async (
   field: Field,
   addOneScore: TCallback,
   completeTurn: TCallback,
+  isLooserChecker: TCallback,
 ) => {
   let blocks: Block[] = [];
 
@@ -50,6 +51,7 @@ export const hitBlocks = async (
     await field.controller.recreateBlocks(blocks);
     await field.controller.fallBlocks(false);
     field.controller.checkAvailableTurns(minimumHit);
+    isLooserChecker();
   };
 
   const checkMinimumHit = (): void => {

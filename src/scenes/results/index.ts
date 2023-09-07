@@ -1,0 +1,1 @@
+export { resultsSceneSchema } from './schema';

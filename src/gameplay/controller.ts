@@ -41,6 +41,7 @@ export class GameplayController extends MVCController<GameplayModel, GameplayVie
         this._model.content.field,
         this._model.addOneScore,
         this._model.turnComplete,
+        this._model.check.isLooser,
       );
       this._playerCanClickOnBlock = true;
     }
