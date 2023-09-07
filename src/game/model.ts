@@ -36,8 +36,8 @@ export class GameModel extends MVCModel {
 
   public createApp = (root: HTMLElement) => {
     const appSize: TSize = {
-      width: LAYOUT.app.width,
-      height: LAYOUT.app.height,
+      width: LAYOUT.app.width * LAYOUT.app.pixelRatio,
+      height: LAYOUT.app.height * LAYOUT.app.pixelRatio,
     };
     const app = new Application({ ...appSize, backgroundColor: LAYOUT.app.backgroundColor });
     root.appendChild(app.view as HTMLCanvasElement);

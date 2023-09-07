@@ -3,6 +3,7 @@ export const LAYOUT = {
     width: 2540,
     height: 2120,
     backgroundColor: '#1099bb',
+    pixelRatio: 0.5, // Параметр отвечает за качество рендера
   },
   panel: {
     score: {
