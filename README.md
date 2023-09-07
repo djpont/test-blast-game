@@ -11,6 +11,7 @@ DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlif
 ### Архитектура
 
 Проект выполнен с использованием архитектуры MVC (Model-View-Controller).
+Отдельные сущности выделены в переиспользуемые компоненты.
 
 #### Компоненты MVC состоят из файлов:
 
