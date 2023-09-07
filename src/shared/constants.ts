@@ -1,8 +1,6 @@
-// import { TSuperPower } from '/shared/types';
 import { DisplayObjectEvents, TextStyle } from 'pixi.js';
 
 const blockColorNames = ['blue', 'purple', 'red', 'green', 'yellow'] as const;
-// const blockColorNames = ['blue', 'red'] as const;
 
 const textureNames = [
   'barBackground',
@@ -21,11 +19,6 @@ const textureNames = [
   'progressContainer',
 ] as const;
 
-export enum ANIMATIONS {
-  disappearing = 'disappearing',
-  falling = 'falling',
-}
-
 export enum MVCACTIONS {
   propsUpdated = 'propsUpdated',
   positionUpdated = 'positionUpdated',
@@ -40,6 +33,12 @@ export enum BLOCKACTIONS {
   spriteUpdated = 'spriteUpdates',
 }
 
+export enum GAMEACTIONS {
+  scoreUpdated = 'scoreUpdated',
+  turnUpdated = 'turnUpdated',
+  walletUpdated = 'walletUpdated',
+}
+
 export enum WEAPONS {
   simple = 'simple',
   bomb = 'bomb',
@@ -48,18 +47,17 @@ export enum WEAPONS {
   shuffle = 'shuffle',
 }
 
-export enum GAMEACTIONS {
-  // assetsLoaded = 'assetsLoaded',
-  scoreUpdated = 'scoreUpdated',
-  turnUpdated = 'turnUpdated',
-  walletUpdated = 'walletUpdated',
-}
-
 export const GAME = {
   language: 'ru',
   field: {
-    width: 4,
-    height: 4,
+    width: 8,
+    height: 9,
+  },
+  rules: {
+    goal: 1000,
+    scoresPerBlock: 5,
+    steps: 30,
+    coins: 30,
   },
   block: {
     size: 172,
