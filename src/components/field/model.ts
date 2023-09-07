@@ -119,12 +119,14 @@ export class FieldModel extends MVCModel {
     return verticals;
   };
 
-  public getLineNeighbours = (block: Block, orientation: 'horizontal' | 'vertical'): Block[] => {
+  public getLineNeighbours = (
+    position: TPosition,
+    orientation: 'horizontal' | 'vertical',
+  ): Block[] => {
     const neighboursPositions: TPosition[] = [];
-    const { fieldPosition } = block.blockProps;
     const dLimit = orientation === 'horizontal' ? this._width : this._height;
     for (let d = 0; d < dLimit; d++) {
-      const newPosition = { x: fieldPosition.x, y: fieldPosition.y };
+      const newPosition = { ...position };
       if (orientation === 'horizontal') {
         newPosition.x = d;
       } else {
@@ -138,11 +140,10 @@ export class FieldModel extends MVCModel {
       .map(({ x, y }) => map[x][y]);
   };
 
-  public getRectNeighbours = (block: Block, length: number = 1): Block[] => {
+  public getRectNeighbours = (position: TPosition, length: number = 1): Block[] => {
     const neighboursPositions: TPosition[] = [];
-    const { fieldPosition } = block.blockProps;
-    for (let x = fieldPosition.x - length; x <= fieldPosition.x + length; x++) {
-      for (let y = fieldPosition.y - length; y <= fieldPosition.y + length; y++) {
+    for (let x = position.x - length; x <= position.x + length; x++) {
+      for (let y = position.y - length; y <= position.y + length; y++) {
         neighboursPositions.push({ x, y });
       }
     }

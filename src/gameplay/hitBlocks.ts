@@ -68,13 +68,13 @@ export const hitBlocks = async (
       checkMinimumHit();
       break;
     case WEAPONS.bomb:
-      blocks = field.neighbours.rect(block);
+      blocks = field.neighbours.rect(clickPosition);
       break;
     case WEAPONS.horizontal:
-      blocks = field.neighbours.line(block, 'horizontal');
+      blocks = field.neighbours.line(clickPosition, 'horizontal');
       break;
     case WEAPONS.vertical:
-      blocks = field.neighbours.line(block, 'vertical');
+      blocks = field.neighbours.line(clickPosition, 'vertical');
       break;
   }
   if (blocks.length) {
