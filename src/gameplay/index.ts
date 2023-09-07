@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import type { TCallback, TGameResult } from '/shared/types';
 import { GameplayModel } from './model';
 import { GameplayView } from './view';

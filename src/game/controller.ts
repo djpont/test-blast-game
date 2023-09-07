@@ -1,4 +1,4 @@
-import { MVCController } from '/classes/mvc';
+import { MVCController } from '/mvc';
 import { GameView } from '/game/view';
 import { GameModel } from 'src/game/model';
 

@@ -1,5 +1,5 @@
-import { MVCView } from '/classes/mvc';
-import { Textures } from '/shared/textures';
+import { MVCView } from '/mvc';
+import { Textures } from '/utils/textures';
 import { Sprite } from 'pixi.js';
 import { ButtonPauseModel } from './model';
 

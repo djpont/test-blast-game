@@ -1,22 +1,3 @@
-export const blockColorNames = ['blue', 'purple', 'red', 'green', 'yellow'] as const;
-
-export const textureNames = [
-  'barBackground',
-  'barFill',
-  'buttonBonus',
-  'buttonPause',
-  'buttonPink',
-  'buttonPlus',
-  'buttonPurple',
-  'coinSmall',
-  'field',
-  'headerContainer',
-  'panelBackground',
-  'panelMoves',
-  'panelScore',
-  'progressContainer',
-] as const;
-
 export enum APPACTIONS {
   appResized = 'appResized',
   sceneChanged = 'resize',

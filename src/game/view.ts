@@ -1,4 +1,4 @@
-import { MVCView } from '/classes/mvc';
+import { MVCView } from '/mvc';
 import { APPACTIONS } from '/shared/enums';
 import { GameModel } from './model';
 

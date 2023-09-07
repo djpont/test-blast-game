@@ -2,7 +2,7 @@ import { Block, Field } from '/components';
 import { GAME } from '/shared/constants';
 import { WEAPONS } from '/shared/enums';
 import type { TCallback, TPosition } from '/shared/types';
-import { Utils } from '/shared/utils';
+import { Utils } from '/utils/utils';
 
 export const hitBlocks = async (
   weapon: WEAPONS,

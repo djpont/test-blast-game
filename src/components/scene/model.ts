@@ -1,4 +1,4 @@
-import { MVCModel } from '/classes/mvc';
+import { MVCModel } from '/mvc';
 import type { TSceneSchema, TSceneLayout, TSceneContent } from '/shared/types';
 
 export class SceneModel extends MVCModel {

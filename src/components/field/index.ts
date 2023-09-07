@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { GAME } from '/shared/constants';
 import { FieldModel } from './model';
 import { FieldView } from './view';

@@ -1,4 +1,4 @@
-import { MVCModel } from '/classes/mvc';
+import { MVCModel } from '/mvc';
 import { MVCACTIONS } from '/shared/enums';
 import { type TCallback } from '/shared/types';
 

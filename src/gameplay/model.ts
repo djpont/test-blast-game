@@ -1,5 +1,5 @@
-import { EventBus } from '/classes/eventBus';
-import { MVCModel } from '/classes/mvc';
+import { EventBus } from '/utils/eventBus';
+import { MVCModel } from '/mvc';
 import { GAME } from '/shared/constants';
 import { GAMEACTIONS, WEAPONS } from '/shared/enums';
 import type { TCallback, TGameResult } from '/shared/types';

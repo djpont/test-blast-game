@@ -1,6 +1,6 @@
-import { EventBus } from '/classes/eventBus';
-import { MVCModel } from '/classes/mvc';
-import { Animations } from '/shared/animation';
+import { EventBus } from '/utils/eventBus';
+import { MVCModel } from '/mvc';
+import { Animations } from '/utils/animation';
 import { GAME } from '/shared/constants';
 import { BLOCKACTIONS } from '/shared/enums';
 import type { TCallback, TPosition } from '/shared/types';

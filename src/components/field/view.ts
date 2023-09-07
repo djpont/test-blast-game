@@ -1,9 +1,9 @@
-import { MVCView } from '/classes/mvc';
+import { MVCView } from '/mvc';
 import { Text } from '/components';
 import { MVCACTIONS } from '/shared/enums';
 import { LAYOUT } from '/shared/layout';
-import { Placer } from '/shared/placer';
-import { Textures } from '/shared/textures';
+import { Placer } from '/utils/placer';
+import { Textures } from '/utils/textures';
 import { Container, Sprite } from 'pixi.js';
 import { FieldModel } from './model';
 

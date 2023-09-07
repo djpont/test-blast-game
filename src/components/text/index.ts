@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { TextModel } from './model';
 import { TextView } from './view';
 import { TextController } from './controller';

@@ -1,6 +1,6 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { Localization } from '/shared/localization';
-import { Textures } from '/shared/textures';
+import { Textures } from '/utils/textures';
 import { GameModel } from './model';
 import { GameView } from './view';
 import { GameController } from './controller';

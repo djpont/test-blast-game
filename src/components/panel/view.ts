@@ -1,10 +1,10 @@
-import { MVCView } from '/classes/mvc';
+import { MVCView } from '/mvc';
 import { GAME } from '/shared/constants';
 import { MVCACTIONS } from '/shared/enums';
 import { LAYOUT } from '/shared/layout';
 import { Localization } from '/shared/localization';
-import { Textures } from '/shared/textures';
-import { Placer } from '/shared/placer';
+import { Textures } from '/utils/textures';
+import { Placer } from '/utils/placer';
 import { Sprite, Text } from 'pixi.js';
 import { PanelModel } from './model';
 

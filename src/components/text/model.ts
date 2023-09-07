@@ -1,4 +1,4 @@
-import { MVCModel } from '/classes/mvc';
+import { MVCModel } from '/mvc';
 import { MVCACTIONS } from '/shared/enums';
 
 export class TextModel extends MVCModel {

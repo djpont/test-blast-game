@@ -1,4 +1,4 @@
-import { MVCController } from '/classes/mvc';
+import { MVCController } from '/mvc';
 import { SceneModel } from './model';
 import { SceneView } from './view';
 

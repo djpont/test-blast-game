@@ -1,5 +1,5 @@
-import { MVCView } from '/classes/mvc';
-import { Placer } from '/shared/placer';
+import { MVCView } from '/mvc';
+import { Placer } from '/utils/placer';
 import { Container } from 'pixi.js';
 import { SceneModel } from './model';
 

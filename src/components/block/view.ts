@@ -1,8 +1,8 @@
-import { MVCView } from '/classes/mvc';
+import { MVCView } from '/mvc';
 import { BLOCKACTIONS } from '/shared/enums';
 import { Sprite } from 'pixi.js';
 import { GAME } from '/shared/constants';
-import { Textures } from '/shared/textures';
+import { Textures } from '/utils/textures';
 import { BlockModel } from './index';
 
 const createBlockSprite = (): Sprite => {

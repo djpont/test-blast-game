@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { ButtonModel } from './model';
 import { ButtonView } from './view';
 import { ButtonController } from './controller';

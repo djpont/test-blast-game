@@ -1,4 +1,4 @@
-import { MVCController } from '/classes/mvc';
+import { MVCController } from '/mvc';
 import { FieldModel } from './model';
 import { FieldView } from './view';
 

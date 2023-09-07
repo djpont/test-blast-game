@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { WalletModel } from './model';
 import { WalletView } from './view';
 import { WalletController } from './controller';

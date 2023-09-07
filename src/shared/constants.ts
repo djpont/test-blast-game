@@ -1,5 +1,23 @@
 import { DisplayObjectEvents, TextStyle } from 'pixi.js';
-import { blockColorNames, textureNames } from './enums';
+
+export const blockColorNames = ['blue', 'purple', 'red', 'green', 'yellow'] as const;
+
+export const textureNames = [
+  'barBackground',
+  'barFill',
+  'buttonBonus',
+  'buttonPause',
+  'buttonPink',
+  'buttonPlus',
+  'buttonPurple',
+  'coinSmall',
+  'field',
+  'headerContainer',
+  'panelBackground',
+  'panelMoves',
+  'panelScore',
+  'progressContainer',
+] as const;
 
 export const GAME = {
   language: 'ru', // Язык (eu, en)

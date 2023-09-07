@@ -1,9 +1,9 @@
-import { MVCModel } from '/classes/mvc';
+import { MVCModel } from '/mvc';
 import { Block } from '/components/block';
 import { GAME } from '/shared/constants';
 import { MVCACTIONS } from '/shared/enums';
 import { type TPosition } from '/shared/types';
-import { Utils } from '/shared/utils';
+import { Utils } from '/utils/utils';
 
 export class FieldModel extends MVCModel {
   private readonly _blocks: Block[] = [];

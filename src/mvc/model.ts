@@ -1,5 +1,5 @@
-import { EventBus } from '/classes/eventBus';
-import { Animations } from '/shared/animation';
+import { EventBus } from '/utils/eventBus';
+import { Animations } from '/utils/animation';
 import { MVCACTIONS } from '/shared/enums';
 import type { TCallback, TPosition } from '/shared/types';
 

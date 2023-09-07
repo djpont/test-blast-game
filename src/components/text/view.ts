@@ -1,4 +1,4 @@
-import { MVCView } from '/classes/mvc';
+import { MVCView } from '/mvc';
 import { GAME } from '/shared/constants';
 import { MVCACTIONS } from '/shared/enums';
 import { Text } from 'pixi.js';

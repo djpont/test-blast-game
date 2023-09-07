@@ -1,4 +1,4 @@
-import { MVCComponent } from '/classes/mvc';
+import { MVCComponent } from '/mvc';
 import { ButtonPauseModel } from './model';
 import { ButtonPauseView } from './view';
 import { ButtonPauseController } from './controller';

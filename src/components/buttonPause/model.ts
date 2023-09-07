@@ -1,4 +1,4 @@
-import { MVCModel } from '/classes/mvc';
+import { MVCModel } from '/mvc';
 
 export class ButtonPauseModel extends MVCModel {
   constructor() {
