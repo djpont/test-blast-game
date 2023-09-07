@@ -59,7 +59,7 @@ export const GAME = {
     height: 9,
   },
   rules: {
-    goal: 1000,
+    goal: 500,
     scoresPerBlock: 5,
     steps: 30,
     coins: 30,
