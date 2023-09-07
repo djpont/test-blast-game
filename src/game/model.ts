@@ -54,6 +54,7 @@ export class GameModel extends MVCModel {
 
   public startApp = () => {
     this.show.intro();
+    this.appEventBus.emit(APPACTIONS.appResized, this);
     this._app.ticker.add(delta => Animations.play(delta));
   };
 
