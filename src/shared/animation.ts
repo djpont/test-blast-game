@@ -1,4 +1,4 @@
-import { TCallback } from '/shared/types';
+import type { TCallback } from '/shared/types';
 
 type TFunction = TCallback;
 let functions: TFunction[] = [];

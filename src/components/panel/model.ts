@@ -3,11 +3,13 @@ import { MVCACTIONS } from '/shared/constants';
 
 export class PanelModel extends MVCModel {
   private _score: number;
+  private _goal: number;
   private _moves: number;
 
   constructor() {
     super();
     this._score = 0;
+    this._goal = 1000;
     this._moves = 0;
   }
 
@@ -17,6 +19,15 @@ export class PanelModel extends MVCModel {
 
   public set score(value: number) {
     this._score = value;
+    this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
+  }
+
+  public get goal() {
+    return this._goal;
+  }
+
+  public set goal(value: number) {
+    this._goal = value;
     this.mvcEventBus.emit(MVCACTIONS.valueUpdated, this);
   }
 

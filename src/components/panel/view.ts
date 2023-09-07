@@ -40,7 +40,7 @@ export class PanelView extends MVCView<PanelModel> {
   }
 
   private valueUpdated = (model: PanelModel) => {
-    this._score.text = model.score;
+    this._score.text = model.goal ? `${model.score}/${model.goal}` : model.score;
     this._moves.text = model.moves;
   };
 }

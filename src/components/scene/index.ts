@@ -1,5 +1,5 @@
 import { MVCComponent } from '/classes/mvc';
-import { TSceneSchema } from '/shared/types';
+import { type TSceneSchema } from '/shared/types';
 import { SceneModel } from './model';
 import { SceneView } from './view';
 import { SceneController } from './controller';

@@ -1,7 +1,7 @@
 import { MVCModel } from '/classes/mvc';
 import { Block } from '/components/block';
 import { GAME, MVCACTIONS } from '/shared/constants';
-import { TPosition } from '/shared/types';
+import { type TPosition } from '/shared/types';
 import { Utils } from '/shared/utils';
 
 export class FieldModel extends MVCModel {

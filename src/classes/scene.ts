@@ -1,4 +1,4 @@
-import { TSceneSchema, TSize } from '/shared/types';
+import type { TSceneSchema, TSize } from '/shared/types';
 import { Application, Container } from 'pixi.js';
 
 export class Scene {

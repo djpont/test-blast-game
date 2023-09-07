@@ -1,5 +1,5 @@
 import { MVCModel } from '/classes/mvc';
-import { TSceneSchema, TSceneLayout, TSceneContent } from '/shared/types';
+import type { TSceneSchema, TSceneLayout, TSceneContent } from '/shared/types';
 
 export class SceneModel extends MVCModel {
   private readonly _content: TSceneContent;

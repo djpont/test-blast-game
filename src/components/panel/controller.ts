@@ -13,6 +13,12 @@ export class PanelController extends MVCController<PanelModel, PanelView> {
     };
   }
 
+  public get changeGoal() {
+    return (value: number) => {
+      this._model.goal = value;
+    };
+  }
+
   public get changeMoves() {
     return (value: number) => {
       this._model.moves = value;

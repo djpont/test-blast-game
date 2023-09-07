@@ -1,4 +1,4 @@
-import { TCallback, TPosition } from '/shared/types';
+import type { TCallback, TPosition } from '/shared/types';
 
 const turtle = (callback: TCallback, delay: number) => {
   let fn: TCallback = null;

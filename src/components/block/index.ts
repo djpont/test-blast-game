@@ -1,5 +1,5 @@
 import { MVCComponent } from '/classes/mvc';
-import { TPosition } from '/shared/types';
+import type { TPosition } from '/shared/types';
 import { BlockModel } from './model';
 import { BlockController } from './controller';
 import { BlockView } from './view';
