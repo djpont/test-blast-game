@@ -1,5 +1,5 @@
 import { GAME } from '/shared/constants';
-import { Localization } from '/shared/localozation';
+import { Localization } from '/shared/localization';
 import type { TGameResult, TSceneController } from '/shared/types';
 import type { TResultsSceneContent, TResultsSceneCallbacks } from './types';
 

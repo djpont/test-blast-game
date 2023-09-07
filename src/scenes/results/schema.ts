@@ -1,5 +1,5 @@
 import { Button, Text } from '/components';
-import { Localization } from '/shared/localozation';
+import { Localization } from '/shared/localization';
 import type { TGameResult } from '/shared/types';
 import { resultsSceneControllerWithResult } from './controller';
 import type { TResultsSceneCallbacks, TResultsSceneSchema } from './types';

@@ -57,7 +57,7 @@ DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlif
     - `view.ts`: отображение сцен
 - `gameplay/`: класс игровых механик
     - `controller.ts`: обработка клика по блоку
-    - `hitBlocks.ts`: механика кликак по блоку, вызов методов контроллера игрового поля
+    - `hitBlocks.ts`: механика клика по блоку, вызов методов контроллера игрового поля
     - `model.ts`: модель игры
     - `view.ts`: отображение статистики игры
 - `scenes/`: сцены
@@ -68,7 +68,7 @@ DEMO: [helpful-tulumba-7691af.netlify.app](https://helpful-tulumba-7691af.netlif
     - `animation.ts`: воспроизведение анимаций
     - `constants.ts`: константы игры
     - `layout.ts`: константы отображения
-    - `localozation.ts`: строки для локализации на разные языки
+    - `localization.ts`: строки для локализации на разные языки
     - `places.ts`: методы размещания игровых компонентов внутри друг друга
     - `textures.ts`: загрузка и использование текстур
     - `types.ts`: общие типы

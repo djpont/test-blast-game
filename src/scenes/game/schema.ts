@@ -1,7 +1,7 @@
 import { ButtonBonus, ButtonPause, Field, Panel, ProgressBar, Wallet } from '/components';
 import { gameSceneController } from '/scenes/game/controller';
 import { GAME } from '/shared/constants';
-import { Localization } from '/shared/localozation';
+import { Localization } from '/shared/localization';
 import type { TGameSceneCallbacks, TGameSceneSchema } from './types';
 
 export const gameSceneSchema = (callbacks: TGameSceneCallbacks): TGameSceneSchema => {

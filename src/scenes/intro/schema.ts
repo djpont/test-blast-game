@@ -1,5 +1,5 @@
 import { Button, Text } from '/components';
-import { Localization } from '/shared/localozation';
+import { Localization } from '/shared/localization';
 import { introSceneController } from './controller';
 import type { TIntroSceneCallbacks, TIntroSceneSchema } from './types';
 

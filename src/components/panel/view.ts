@@ -1,7 +1,7 @@
 import { MVCView } from '/classes/mvc';
 import { GAME, MVCACTIONS } from '/shared/constants';
 import { LAYOUT } from '/shared/layout';
-import { Localization } from '/shared/localozation';
+import { Localization } from '/shared/localization';
 import { Textures } from '/shared/textures';
 import { Placer } from '/shared/placer';
 import { Sprite, Text } from 'pixi.js';
