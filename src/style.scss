@@ -1,6 +1,8 @@
 @font-face {
   font-family: 'Marvin';
-  src: url('/assets/font/font-marvin.woff') format('woff');
+  src:
+    url('/assets/font/font-marvin.woff') format('woff'),
+    url('/assets/font/font-marvin.ttf') format('ttf');
 }
 
 html,
