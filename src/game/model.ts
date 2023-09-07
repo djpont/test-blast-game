@@ -10,7 +10,6 @@ import { LAYOUT } from '/shared/layout';
 export class GameModel extends MVCModel {
   private _stage: Container;
   private _stageRootChildrenCount: number = 1;
-  private _currentScene: Scene;
 
   constructor() {
     super();
@@ -75,7 +74,6 @@ export class GameModel extends MVCModel {
     if (removeOthers && this._stage.children.length > this._stageRootChildrenCount) {
       this._stage.removeChildren(this._stageRootChildrenCount);
     }
-    this._currentScene = scene;
     scene.controller.scene.addAndSceneAndScale(this._stage);
   };
 }
